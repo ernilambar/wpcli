@@ -5,9 +5,7 @@ export function getStaticPaths() {
   const routes = [];
 
   Object.keys(manifest).forEach(function (item) {
-    const key = item.replace(/[/]/g,'-');
-    let temp = { params: {command: key } };
-    routes.push( temp );
+    routes.push( { params: { command: item } } );
   });
 
   return routes;
@@ -16,6 +14,8 @@ export function getStaticPaths() {
 const { command } = Astro.params;
 
 ---
+
 <h1>{command}</h1>
-<br>
 <p>{manifest[command].excerpt}</p>
+{manifest[command].synopsis && <p>{manifest[command].synopsis}</p>}
+<div>{manifest[command].description}</div>
