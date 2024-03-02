@@ -2,18 +2,19 @@
 import manifest from '../../manifest.json';
 
 export function getStaticPaths() {
+  const routes = [];
 
+  Object.keys(manifest).forEach(function (item) {
+    const key = item.replace(/[/]/g,'-');
+    let temp = { params: {command: key } };
+    routes.push( temp );
+  });
 
-  return [
-    {params: {command: 'core'}},
-    {params: {command: 'plugin'}},
-    {params: {command: 'theme'}},
-    {params: {command: 'post'}},
-  ];
+  return routes;
 }
 
 const { command } = Astro.params;
 
 ---
 <h1>{command}</h1>
-{JSON.stringify(manifest[command] )}
+{JSON.stringify( manifest[command] )}
