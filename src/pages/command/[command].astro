@@ -17,4 +17,5 @@ const { command } = Astro.params;
 
 ---
 <h1>{command}</h1>
-{JSON.stringify( manifest[command] )}
+<br>
+<p>{manifest[command].excerpt}</p>
