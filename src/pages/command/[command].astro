@@ -1,13 +1,19 @@
 ---
+import manifest from '../../manifest.json';
+
 export function getStaticPaths() {
+
+
   return [
-    {params: {command: 'wp-core'}},
-    {params: {command: 'wp-plugin'}},
-    {params: {command: 'wp-theme'}},
-    {params: {command: 'wp-post'}},
+    {params: {command: 'core'}},
+    {params: {command: 'plugin'}},
+    {params: {command: 'theme'}},
+    {params: {command: 'post'}},
   ];
 }
 
 const { command } = Astro.params;
+
 ---
 <h1>{command}</h1>
+{JSON.stringify(manifest[command] )}
