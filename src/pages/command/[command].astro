@@ -1,0 +1,12 @@
+---
+export function getStaticPaths() {
+  return [
+    {params: {command: 'wp-plugin'}},
+    {params: {command: 'wp-theme'}},
+    {params: {command: 'wp-post'}},
+  ];
+}
+
+const { command } = Astro.params;
+---
+<h1>{command}</h1>
