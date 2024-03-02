@@ -15,7 +15,7 @@ const { command } = Astro.params;
 
 ---
 
-<h1>{command}</h1>
+<h1>wp {manifest[command].title}</h1>
 <p>{manifest[command].excerpt}</p>
 {manifest[command].synopsis && <p>{manifest[command].synopsis}</p>}
-<div>{manifest[command].description}</div>
+<div style="white-space: pre-line">{manifest[command].description}</div>
