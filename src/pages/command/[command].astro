@@ -1,6 +1,7 @@
 ---
 export function getStaticPaths() {
   return [
+    {params: {command: 'wp-core'}},
     {params: {command: 'wp-plugin'}},
     {params: {command: 'wp-theme'}},
     {params: {command: 'wp-post'}},
