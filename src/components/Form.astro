@@ -39,14 +39,6 @@ const siteUrl = import.meta.env.BASE_URL;
             const url = `${siteUrl}/command/${data.value.slug}`;
             item.innerHTML = `<a href='${url}'>${data.value.title}</a>`;
           },
-      },
-      events: {
-          input: {
-              selection: (event) => {
-                  const selection = event.detail.selection.value;
-                  autoCompleteJS.input.value = selection;
-              }
-          }
       }
   });
 </script>

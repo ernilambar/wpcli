@@ -1,7 +1,91 @@
+body {
+  font-family: "Inter", sans-serif;
+  font-size: 16px;
+  font-weight: 400;
+  color: #222;
+}
+
+a {
+  color: #3858e9;
+  cursor: pointer;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+ol,
+ul {
+	padding: 12px 0;
+	margin-top: 0;
+	margin-bottom: 0;
+}
+
+
 .container {
 	position: relative;
 	width: 100%;
 	max-width: 1260px;
 	padding-inline: 20px;
 	margin: 0 auto;
+}
+
+
+/* Header */
+.site-header {
+  background-color: #23282d;
+  padding: 10px 0;
+  margin-bottom: 60px;
+}
+
+.site-header img {
+  max-width: 80px;
+}
+
+.site-header span {
+  margin-left: 20px;
+  font-size: 16px;
+  font-weight: 400;
+  color: #f5f5f5;
+}
+
+/* Footer */
+.site-footer {
+  margin-top: 60px;
+}
+
+.site-footer p {
+  color: #888;
+}
+
+.site-footer .credits {
+  padding-top: 10px;
+  border-top: 1px solid #ddd;
+}
+
+/* Command */
+.command {
+  margin: 0;
+}
+
+.command h1 {
+  font-size: 24px;
+  font-weight: 400;
+  line-height: 40px;
+  color: #008a20;
+  margin-top: 0;
+  padding-top: 0;
+}
+
+.command .caption {
+  margin-top: 20px;
+}
+
+.command .synopsis {
+  margin: 20px 0;
+  background-color: #f6f8fa;
+  padding: 16px;
 }
