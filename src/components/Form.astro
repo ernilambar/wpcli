@@ -1,0 +1,54 @@
+---
+import manifest from '../manifest.json';
+
+const commands = [];
+
+Object.keys(manifest).forEach(function (item) {
+  commands.push( {
+    title: manifest[item].title,
+    excerpt: manifest[item].excerpt,
+    slug: item
+  } );
+});
+
+const urlObj = Astro.url;
+const siteUrl = urlObj.href;
+---
+<script type="module" src="public/third-party/autocomplete/autoComplete.js"></script>
+<link rel="stylesheet" href="public/third-party/autocomplete/css/autoComplete.css">
+
+<h1>WP CLI</h1>
+
+<div class="autoComplete_wrapper">
+  <input id="autoComplete" type="search" dir="ltr" spellcheck=false autocorrect="off" autocomplete="off" autocapitalize="off">
+</div>
+
+<script type="module" define:vars={{ commands, siteUrl }}>
+const autoCompleteJS = new autoComplete({
+    placeHolder: "Search...",
+    threshold: 2,
+    debounce: 300,
+    data: {
+        src: commands,
+        keys: ["title"]
+    },
+    resultsList: {
+      maxResults: 10,
+    },
+    resultItem: {
+        highlight: true,
+        element: (item, data) => {
+					const url = siteUrl + "command/" + data.value.slug;
+					item.innerHTML = `<a href='${url}'>${data.value.title}</a>`;
+				},
+    },
+    events: {
+        input: {
+            selection: (event) => {
+                const selection = event.detail.selection.value;
+                autoCompleteJS.input.value = selection;
+            }
+        }
+    }
+});
+</script>
