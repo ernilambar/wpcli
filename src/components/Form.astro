@@ -38,7 +38,7 @@ const autoCompleteJS = new autoComplete({
     resultItem: {
         highlight: true,
         element: (item, data) => {
-					const url = siteUrl + "command/" + data.value.slug;
+					const url = `${siteUrl}/command/${data.value.slug}`;
 					item.innerHTML = `<a href='${url}'>${data.value.title}</a>`;
 				},
     },
