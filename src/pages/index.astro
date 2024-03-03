@@ -1,15 +1,7 @@
 ---
+import BaseLayout from '../layouts/BaseLayout.astro';
 import Form from '../components/Form.astro';
 ---
-
-<html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<title>WP CLI</title>
-	</head>
-	<body>
-    <Form />
-	</body>
-</html>
+<BaseLayout>
+  <Form />
+</BaseLayout>
