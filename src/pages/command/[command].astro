@@ -23,6 +23,18 @@ const { command } = Astro.params;
     </div><!-- .caption -->
 
     {manifest[command].synopsis && <div class="synopsis"><p>{manifest[command].synopsis}</p></div>}
-    <div style="white-space: pre-line">{manifest[command].description}</div>
+
+    {manifest[command].options &&
+      <div class="options"><h3>Options</h3><p>{manifest[command].options}</p></div>
+    }
+
+    {manifest[command].available &&
+      <div class="available"><h3>Available Options</h3><p>{manifest[command].available}</p></div>
+    }
+
+    {manifest[command].examples &&
+      <div class="examples"><h3>Examples</h3><p>{manifest[command].examples}</p></div>
+    }
+
   </div><!-- .command -->
 </BaseLayout>

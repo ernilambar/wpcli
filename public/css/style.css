@@ -24,6 +24,11 @@ ul {
 	margin-bottom: 0;
 }
 
+p {
+  margin: 0;
+  padding: 0;
+}
+
 
 .container {
 	position: relative;
@@ -88,4 +93,16 @@ ul {
   margin: 20px 0;
   background-color: #f6f8fa;
   padding: 16px;
+}
+
+.command .options {
+  white-space: pre-line;
+}
+
+.command .available {
+  white-space: pre-line;
+}
+
+.command .examples {
+  white-space: pre-line;
 }
