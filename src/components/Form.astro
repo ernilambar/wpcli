@@ -11,44 +11,42 @@ Object.keys(manifest).forEach(function (item) {
   } );
 });
 
-const siteUrl = Astro.url.href;
+const siteUrl = import.meta.env.BASE_URL;
 ---
 
 <script type="module" src=`${import.meta.env.BASE_URL}/third-party/autocomplete/autoComplete.js`></script>
 <link rel="stylesheet" href=`${import.meta.env.BASE_URL}/third-party/autocomplete/css/autoComplete.css`>
-
-<h1>WP CLI</h1>
 
 <div class="autoComplete_wrapper">
   <input id="autoComplete" type="search" dir="ltr" spellcheck=false autocorrect="off" autocomplete="off" autocapitalize="off">
 </div>
 
 <script type="module" define:vars={{ commands, siteUrl }}>
-const autoCompleteJS = new autoComplete({
-    placeHolder: "Search...",
-    threshold: 2,
-    debounce: 300,
-    data: {
-        src: commands,
-        keys: ["title"]
-    },
-    resultsList: {
-      maxResults: 10,
-    },
-    resultItem: {
-        highlight: true,
-        element: (item, data) => {
-					const url = `${siteUrl}/command/${data.value.slug}`;
-					item.innerHTML = `<a href='${url}'>${data.value.title}</a>`;
-				},
-    },
-    events: {
-        input: {
-            selection: (event) => {
-                const selection = event.detail.selection.value;
-                autoCompleteJS.input.value = selection;
-            }
-        }
-    }
-});
+  const autoCompleteJS = new autoComplete({
+      placeHolder: "Search...",
+      threshold: 2,
+      debounce: 300,
+      data: {
+          src: commands,
+          keys: ["title"]
+      },
+      resultsList: {
+        maxResults: 10,
+      },
+      resultItem: {
+          highlight: true,
+          element: (item, data) => {
+            const url = `${siteUrl}/command/${data.value.slug}`;
+            item.innerHTML = `<a href='${url}'>${data.value.title}</a>`;
+          },
+      },
+      events: {
+          input: {
+              selection: (event) => {
+                  const selection = event.detail.selection.value;
+                  autoCompleteJS.input.value = selection;
+              }
+          }
+      }
+  });
 </script>

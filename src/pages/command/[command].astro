@@ -1,4 +1,5 @@
 ---
+import BaseLayout from '../../layouts/BaseLayout.astro';
 import manifest from '../../manifest.json';
 
 export function getStaticPaths() {
@@ -14,8 +15,9 @@ export function getStaticPaths() {
 const { command } = Astro.params;
 
 ---
-
-<h1>wp {manifest[command].title}</h1>
-<p>{manifest[command].excerpt}</p>
-{manifest[command].synopsis && <p>{manifest[command].synopsis}</p>}
-<div style="white-space: pre-line">{manifest[command].description}</div>
+<BaseLayout>
+  <h1>wp {manifest[command].title}</h1>
+  <p>{manifest[command].excerpt}</p>
+  {manifest[command].synopsis && <p>{manifest[command].synopsis}</p>}
+  <div style="white-space: pre-line">{manifest[command].description}</div>
+</BaseLayout>

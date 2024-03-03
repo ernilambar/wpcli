@@ -1,0 +1,28 @@
+---
+import HeaderLayout from '../layouts/HeaderLayout.astro';
+import FooterLayout from '../layouts/FooterLayout.astro';
+
+const { title } = Astro.props;
+const pageTitle = "Home Page";
+---
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="generator" content={Astro.generator} />
+    <title>{pageTitle}</title>
+    <link rel="stylesheet" href=`${import.meta.env.BASE_URL}/css/normalize.css`>
+    <link rel="stylesheet" href=`${import.meta.env.BASE_URL}/css/style.css`>
+  </head>
+  <body>
+
+    <HeaderLayout />
+
+    <article>
+      <div class="container"><slot /></div>
+    </article>
+
+    <FooterLayout />
+
+  </body>
+</html>
