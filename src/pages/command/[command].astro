@@ -16,8 +16,13 @@ const { command } = Astro.params;
 
 ---
 <BaseLayout>
-  <h1>wp {manifest[command].title}</h1>
-  <p>{manifest[command].excerpt}</p>
-  {manifest[command].synopsis && <p>{manifest[command].synopsis}</p>}
-  <div style="white-space: pre-line">{manifest[command].description}</div>
+  <div class="command">
+    <h1>wp {manifest[command].title}</h1>
+    <div class="caption">
+      <p>{manifest[command].excerpt}</p>
+    </div><!-- .caption -->
+
+    {manifest[command].synopsis && <div class="synopsis"><p>{manifest[command].synopsis}</p></div>}
+    <div style="white-space: pre-line">{manifest[command].description}</div>
+  </div><!-- .command -->
 </BaseLayout>
