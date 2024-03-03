@@ -11,11 +11,11 @@ Object.keys(manifest).forEach(function (item) {
   } );
 });
 
-const urlObj = Astro.url;
-const siteUrl = urlObj.href;
+const siteUrl = Astro.url.href;
 ---
-<script type="module" src="public/third-party/autocomplete/autoComplete.js"></script>
-<link rel="stylesheet" href="public/third-party/autocomplete/css/autoComplete.css">
+
+<script type="module" src=`${import.meta.env.BASE_URL}/third-party/autocomplete/autoComplete.js`></script>
+<link rel="stylesheet" href=`${import.meta.env.BASE_URL}/third-party/autocomplete/css/autoComplete.css`>
 
 <h1>WP CLI</h1>
 
