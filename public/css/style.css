@@ -16,7 +16,6 @@ h3,
 h4,
 h5,
 h6,
-p,
 ol,
 ul {
 	padding: 12px 0;
@@ -27,6 +26,7 @@ ul {
 p {
   margin: 0;
   padding: 0;
+  margin-bottom: 10px;
 }
 
 
@@ -103,6 +103,10 @@ p {
   white-space: pre-line;
 }
 
-.command .examples {
+.command .examples .examples-content {
   white-space: pre-line;
+  background-color: #f6f8fa;
+  padding: 16px;
+  overflow: auto;
+  font-family: 'IBM Plex Mono', monospace;
 }

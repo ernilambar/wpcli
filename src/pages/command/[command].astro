@@ -20,6 +20,9 @@ const { command } = Astro.params;
     <h1>wp {manifest[command].title}</h1>
     <div class="caption">
       <p>{manifest[command].excerpt}</p>
+      {manifest[command].options_extra &&
+        <p>{manifest[command].options_extra}</p>
+      }
     </div><!-- .caption -->
 
     {manifest[command].synopsis && <div class="synopsis"><p>{manifest[command].synopsis}</p></div>}
@@ -33,7 +36,7 @@ const { command } = Astro.params;
     }
 
     {manifest[command].examples &&
-      <div class="examples"><h3>Examples</h3><p>{manifest[command].examples}</p></div>
+      <div class="examples"><h3>Examples</h3><div class="examples-content">{manifest[command].examples}</div></div>
     }
 
   </div><!-- .command -->
