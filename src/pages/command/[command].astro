@@ -1,43 +1,71 @@
 ---
-import BaseLayout from '../../layouts/BaseLayout.astro';
-import manifest from '../../manifest.json';
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import manifest from "../../manifest.json";
 
 export function getStaticPaths() {
   const routes = [];
 
   Object.keys(manifest).forEach(function (item) {
-    routes.push( { params: { command: item } } );
+    routes.push({ params: { command: item } });
   });
 
   return routes;
 }
 
 const { command } = Astro.params;
-
 ---
+
 <BaseLayout>
   <div class="command">
     <h1>wp {manifest[command].title}</h1>
     <div class="caption">
       <p>{manifest[command].excerpt}</p>
-      {manifest[command].options_extra &&
-        <p>{manifest[command].options_extra}</p>
+      {
+        manifest[command].options_extra && (
+          <p>{manifest[command].options_extra}</p>
+        )
       }
     </div><!-- .caption -->
 
-    {manifest[command].synopsis && <div class="synopsis"><p>{manifest[command].synopsis}</p></div>}
-
-    {manifest[command].options &&
-      <div class="options"><h3>Options</h3><p>{manifest[command].options}</p></div>
+    {
+      manifest[command].synopsis && (
+        <div class="synopsis">
+          <p>{manifest[command].synopsis}</p>
+        </div>
+      )
     }
 
-    {manifest[command].available &&
-      <div class="available"><h3>Available Options</h3><p>{manifest[command].available}</p></div>
+    {
+      manifest[command].options && (
+        <div class="options">
+          <>
+            <h3>Options</h3>
+            <p>{manifest[command].options}</p>
+          </>
+        </div>
+      )
     }
 
-    {manifest[command].examples &&
-      <div class="examples"><h3>Examples</h3><div class="examples-content">{manifest[command].examples}</div></div>
+    {
+      manifest[command].available && (
+        <div class="available">
+          <>
+            <h3>Available Options</h3>
+            <p>{manifest[command].available}</p>
+          </>
+        </div>
+      )
     }
 
+    {
+      manifest[command].examples && (
+        <div class="examples">
+          <>
+            <h3>Examples</h3>
+            <div class="examples-content">{manifest[command].examples}</div>
+          </>
+        </div>
+      )
+    }
   </div><!-- .command -->
 </BaseLayout>

@@ -1,6 +1,6 @@
-import { defineConfig } from 'astro/config'
+import { defineConfig } from "astro/config";
 
 export default defineConfig({
-  site: 'https://ernilambar.github.io',
-  base: '/wpcli',
-})
+  site: "https://ernilambar.github.io",
+  base: "/wpcli",
+});
