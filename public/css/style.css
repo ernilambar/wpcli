@@ -15,9 +15,7 @@ h2,
 h3,
 h4,
 h5,
-h6,
-ol,
-ul {
+h6 {
   padding: 12px 0;
   margin-top: 0;
   margin-bottom: 0;
@@ -27,6 +25,12 @@ p {
   margin: 0;
   padding: 0;
   margin-bottom: 10px;
+}
+
+ol,
+ul {
+  margin: 0;
+  padding: 0;
 }
 
 .container {
@@ -106,6 +110,11 @@ p {
 
 .command .available {
   white-space: pre-line;
+}
+
+.command .available ul {
+  list-style-type: disc;
+  list-style-position: inside;
 }
 
 .command .examples .examples-content {

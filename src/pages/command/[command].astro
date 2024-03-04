@@ -22,7 +22,7 @@ const { command } = Astro.params;
       <p>{manifest[command].excerpt}</p>
       {
         manifest[command].options_extra && (
-          <p>{manifest[command].options_extra}</p>
+          <div set:html={manifest[command].options_extra} />
         )
       }
     </div><!-- .caption -->
@@ -51,7 +51,7 @@ const { command } = Astro.params;
         <div class="available">
           <>
             <h3>Available Options</h3>
-            <p>{manifest[command].available}</p>
+            <div set:html={manifest[command].available} />
           </>
         </div>
       )
