@@ -1,0 +1,6 @@
+.github
+.vscode
+*.json
+*.md
+public/third-party/
+node_modules/

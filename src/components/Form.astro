@@ -1,48 +1,62 @@
 ---
-import manifest from '../manifest.json';
+import manifest from "../manifest.json";
 
 const commands = [];
 
 Object.keys(manifest).forEach(function (item) {
-  commands.push( {
+  commands.push({
     title: manifest[item].title,
     excerpt: manifest[item].excerpt,
-    slug: item
-  } );
+    slug: item,
+  });
 });
 
 const siteUrl = import.meta.env.BASE_URL;
 ---
 
-<script type="module" src=`${import.meta.env.BASE_URL}/third-party/autocomplete/autoComplete.js`></script>
-<link rel="stylesheet" href=`${import.meta.env.BASE_URL}/third-party/autocomplete/css/autoComplete.css`>
+<script
+  type="module"
+  src=`${import.meta.env.BASE_URL}/third-party/autocomplete/autoComplete.js`
+></script>
+<link
+  rel="stylesheet"
+  href=`${import.meta.env.BASE_URL}/third-party/autocomplete/css/autoComplete.css`
+/>
 
 <div class="autoComplete_wrapper">
-  <input id="autoComplete" type="search" dir="ltr" spellcheck=false autocorrect="off" autocomplete="off" autocapitalize="off">
+  <input
+    id="autoComplete"
+    type="search"
+    dir="ltr"
+    spellcheck="false"
+    autocorrect="off"
+    autocomplete="off"
+    autocapitalize="off"
+  />
 </div>
 
 <script type="module" define:vars={{ commands, siteUrl }}>
   new autoComplete({
-      placeHolder: "Search...",
-      threshold: 2,
-      debounce: 300,
-      data: {
-          src: commands,
-          keys: ["title"]
+    placeHolder: "Search command...",
+    threshold: 2,
+    debounce: 300,
+    data: {
+      src: commands,
+      keys: ["title"],
+    },
+    resultsList: {
+      maxResults: 10,
+    },
+    events: {
+      input: {
+        selection: (event) => {
+          const selection = event.detail.selection.value;
+          window.location = `${siteUrl}/command/${selection.slug}`;
+        },
       },
-      resultsList: {
-        maxResults: 10,
-      },
-      events: {
-          input: {
-              selection: (event) => {
-                  const selection = event.detail.selection.value;
-                  window.location = `${siteUrl}/command/${selection.slug}`;
-              }
-          }
-      },
-      resultItem: {
-          highlight: true
-      }
+    },
+    resultItem: {
+      highlight: true,
+    },
   });
 </script>

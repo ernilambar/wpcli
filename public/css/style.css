@@ -18,9 +18,9 @@ h5,
 h6,
 ol,
 ul {
-	padding: 12px 0;
-	margin-top: 0;
-	margin-bottom: 0;
+  padding: 12px 0;
+  margin-top: 0;
+  margin-bottom: 0;
 }
 
 p {
@@ -29,15 +29,13 @@ p {
   margin-bottom: 10px;
 }
 
-
 .container {
-	position: relative;
-	width: 100%;
-	max-width: 1260px;
-	padding-inline: 20px;
-	margin: 0 auto;
+  position: relative;
+  width: 100%;
+  max-width: 1260px;
+  padding-inline: 20px;
+  margin: 0 auto;
 }
-
 
 /* Header */
 .site-header {
@@ -115,5 +113,5 @@ p {
   background-color: #f6f8fa;
   padding: 16px;
   overflow: auto;
-  font-family: 'IBM Plex Mono', monospace;
+  font-family: "IBM Plex Mono", monospace;
 }
