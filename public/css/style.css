@@ -3,6 +3,7 @@ body {
   font-size: 16px;
   font-weight: 400;
   color: #222;
+  line-height: 1.4;
 }
 
 a {
@@ -31,6 +32,21 @@ ol,
 ul {
   margin: 0;
   padding: 0;
+}
+
+li + li {
+  margin-top: 4px;
+}
+
+code {
+  font-family: "IBM Plex Mono", monospace;
+  color: #1e1e1e;
+  background-color: #f6f6f6;
+  border-radius: 2px;
+  display: inline-block;
+  padding: 3px;
+  text-wrap: pretty;
+  overflow-wrap: break-word;
 }
 
 .container {
@@ -98,6 +114,13 @@ ul {
   margin-top: 20px;
 }
 
+.command .caption ul {
+  list-style-type: disc;
+  list-style-position: outside;
+  margin-left: 20px;
+  margin-bottom: 20px;
+}
+
 .command .synopsis {
   margin: 20px 0;
   background-color: #f6f8fa;
@@ -108,13 +131,18 @@ ul {
   white-space: pre-line;
 }
 
-.command .available {
-  white-space: pre-line;
+.command .available ul {
+  margin-bottom: 20px;
+}
+
+.command .available p {
+  margin-bottom: 10px;
 }
 
 .command .available ul {
   list-style-type: disc;
-  list-style-position: inside;
+  list-style-position: outside;
+  margin-left: 20px;
 }
 
 .command .examples .examples-content {
@@ -123,4 +151,5 @@ ul {
   padding: 16px;
   overflow: auto;
   font-family: "IBM Plex Mono", monospace;
+  font-size: 15px;
 }
