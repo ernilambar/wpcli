@@ -127,6 +127,10 @@ code {
   padding: 16px;
 }
 
+.command .synopsis p {
+  margin: 0;
+}
+
 .command .options {
   white-space: pre-line;
 }
