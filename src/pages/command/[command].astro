@@ -40,7 +40,7 @@ const { command } = Astro.params;
         <div class="options">
           <>
             <h3>Options</h3>
-            <p>{manifest[command].options}</p>
+            <div set:html={manifest[command].options} />
           </>
         </div>
       )
