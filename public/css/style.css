@@ -96,6 +96,25 @@ code {
   border-top: 1px solid #ddd;
 }
 
+/* Home */
+section.featured {
+  margin: 40px 0 0 0;
+}
+
+section.featured ul {
+  list-style-position: outside;
+  margin-left: 15px;
+}
+
+section.featured ul li a {
+  color: rgb(190, 134, 45);
+  text-decoration: none;
+}
+
+section.featured ul li a:hover {
+  text-decoration: underline;
+}
+
 /* Command */
 .command {
   margin: 0;
