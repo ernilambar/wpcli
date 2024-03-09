@@ -16,7 +16,7 @@ export function getStaticPaths() {
 const { command } = Astro.params;
 ---
 
-<BaseLayout>
+<BaseLayout title={"wp " + manifest[command].title + " - WP CLI"}>
   <div class="command">
     <h1>wp {manifest[command].title}</h1>
     <div class="caption">
