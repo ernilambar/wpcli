@@ -200,3 +200,22 @@ section.featured ul li a:hover {
   font-family: "IBM Plex Mono", monospace;
   font-size: 15px;
 }
+
+/* Related */
+section.related {
+  margin: 20px 0 10px 0;
+}
+
+section.related ul {
+  list-style-position: outside;
+  margin-left: 15px;
+}
+
+section.related ul li a {
+  color: rgb(190, 134, 45);
+  text-decoration: none;
+}
+
+section.related ul li a:hover {
+  text-decoration: underline;
+}

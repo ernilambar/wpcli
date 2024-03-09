@@ -1,0 +1,41 @@
+---
+import manifest from "../manifest.json";
+
+const { cmd } = Astro.props;
+
+function getFinderKey(cmd) {
+  const exploded = cmd.split("-");
+
+  if (1 === exploded.length) {
+    return cmd;
+  }
+
+  const lastIndex = cmd.lastIndexOf("-");
+
+  return cmd.substring(0, lastIndex);
+}
+
+const siteUrl = import.meta.env.BASE_URL;
+
+const finderKey = getFinderKey(cmd);
+
+let relatedCommands = Object.keys(manifest).filter(function (item) {
+  return item.includes(finderKey) && cmd !== item;
+});
+
+relatedCommands = relatedCommands.slice(0, 5);
+---
+
+<section class="related">
+  <h3>Related Commands</h3>
+
+  <ul>
+    {
+      relatedCommands.map((item) => (
+        <li>
+          <a href={siteUrl + "/command/" + item}>{item}</a>
+        </li>
+      ))
+    }
+  </ul>
+</section><!-- .related -->

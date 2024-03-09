@@ -1,6 +1,7 @@
 ---
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import manifest from "../../manifest.json";
+import RelatedCommands from "../../components/RelatedCommands.astro";
 
 export function getStaticPaths() {
   const routes = [];
@@ -68,4 +69,6 @@ const { command } = Astro.params;
       )
     }
   </div><!-- .command -->
+
+  <RelatedCommands cmd={command} />
 </BaseLayout>
