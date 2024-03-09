@@ -4,15 +4,19 @@ import manifest from "../manifest.json";
 const { cmd } = Astro.props;
 
 function getFinderKey(cmd) {
-  const exploded = cmd.split("-");
+  const title = manifest[cmd]["title"];
+
+  const exploded = title.split(" ");
 
   if (1 === exploded.length) {
     return cmd;
   }
 
-  const lastIndex = cmd.lastIndexOf("-");
+  const lastIndex = title.lastIndexOf(" ");
 
-  return cmd.substring(0, lastIndex);
+  const newTitle = title.substring(0, lastIndex);
+
+  return newTitle.replace(" ", "-");
 }
 
 const siteUrl = import.meta.env.BASE_URL;
