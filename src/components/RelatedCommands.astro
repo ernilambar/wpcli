@@ -5,8 +5,13 @@ const { cmd } = Astro.props;
 
 function getFinderKey(cmd) {
   const title = manifest[cmd]["title"];
+  const hasChild = manifest[cmd]["has_child"];
 
   const exploded = title.split(" ");
+
+  if (1 === parseInt(hasChild)) {
+    return cmd;
+  }
 
   if (1 === exploded.length) {
     return cmd;
