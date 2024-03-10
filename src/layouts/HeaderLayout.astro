@@ -11,3 +11,27 @@ const homeUrl = import.meta.env.BASE_URL;
     </h1>
   </div><!-- .container -->
 </header>
+
+<style lang="scss">
+  .site-header {
+    background-color: #23282d;
+    padding: 10px 0;
+    margin-bottom: 60px;
+
+    img {
+      max-width: 80px;
+    }
+
+    span {
+      margin-left: 20px;
+      font-size: 16px;
+      font-weight: 400;
+      color: #f5f5f5;
+      display: none;
+
+      @media screen and (min-width: 768px) {
+        display: inline-block;
+      }
+    }
+  }
+</style>

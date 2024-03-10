@@ -7,7 +7,7 @@ body {
 }
 
 a {
-  color: rgb(190, 134, 45);
+  color: #be862d;
   cursor: pointer;
 }
 
@@ -20,6 +20,11 @@ h6 {
   padding: 12px 0;
   margin-top: 0;
   margin-bottom: 0;
+  font-weight: 600;
+}
+
+b,
+strong {
   font-weight: 600;
 }
 
@@ -56,64 +61,6 @@ code {
   max-width: 1260px;
   padding-inline: 20px;
   margin: 0 auto;
-}
-
-/* Header */
-.site-header {
-  background-color: #23282d;
-  padding: 10px 0;
-  margin-bottom: 60px;
-}
-
-.site-header img {
-  max-width: 80px;
-}
-
-.site-header span {
-  margin-left: 20px;
-  font-size: 16px;
-  font-weight: 400;
-  color: #f5f5f5;
-  display: none;
-}
-
-@media screen and (min-width: 768px) {
-  .site-header span {
-    display: inline-block;
-  }
-}
-
-/* Footer */
-.site-footer {
-  margin-top: 60px;
-}
-
-.site-footer p {
-  color: #888;
-}
-
-.site-footer .credits {
-  padding-top: 10px;
-  border-top: 1px solid #ddd;
-}
-
-/* Home */
-section.featured {
-  margin: 40px 0 0 0;
-}
-
-section.featured ul {
-  list-style-position: outside;
-  margin-left: 15px;
-}
-
-section.featured ul li a {
-  color: rgb(190, 134, 45);
-  text-decoration: none;
-}
-
-section.featured ul li a:hover {
-  text-decoration: underline;
 }
 
 /* Command */
@@ -180,17 +127,30 @@ section.featured ul li a:hover {
   list-style-type: none;
   margin: 0;
   padding: 0;
-  display:inline-flex;
-  justify-content: center;
-  align-items: center;
-  gap: 0;
-  margin-left: 5px;
+  display: inline-flex;
+  flex-wrap: wrap;
+  row-gap: 5px;
+}
+
+@media screen and (min-width: 576px) {
+  .command .options dd ul {
+    align-items: center;
+    gap: 0;
+    margin-left: 5px;
+  }
 }
 
 .command .options dd ul li {
   margin: 0;
   padding: 0;
-  margin-left: 5px;
+  margin-right: 5px;
+}
+
+@media screen and (min-width: 576px) {
+  .command .options dd ul li {
+    margin-left: 5px;
+    margin-right: 0;
+  }
 }
 
 .command .options dd ul li:after {
@@ -221,23 +181,4 @@ section.featured ul li a:hover {
   overflow: auto;
   font-family: "IBM Plex Mono", monospace;
   font-size: 15px;
-}
-
-/* Related */
-section.related {
-  margin: 20px 0 10px 0;
-}
-
-section.related ul {
-  list-style-position: outside;
-  margin-left: 15px;
-}
-
-section.related ul li a {
-  color: rgb(190, 134, 45);
-  text-decoration: none;
-}
-
-section.related ul li a:hover {
-  text-decoration: underline;
 }
