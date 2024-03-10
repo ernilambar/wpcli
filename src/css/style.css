@@ -20,6 +20,7 @@ h6 {
   padding: 12px 0;
   margin-top: 0;
   margin-bottom: 0;
+  font-weight: 600;
 }
 
 p {
@@ -44,7 +45,7 @@ code {
   background-color: #f6f6f6;
   border-radius: 2px;
   display: inline-block;
-  padding: 3px;
+  padding: 0 3px;
   text-wrap: pretty;
   overflow-wrap: break-word;
 }
@@ -161,7 +162,7 @@ section.featured ul li a:hover {
 }
 
 .command .options dt {
-  font-weight: 700;
+  font-weight: 600;
 }
 
 .command .options dd {
@@ -169,13 +170,34 @@ section.featured ul li a:hover {
 }
 
 .command .options dd div {
-  font-weight: 700;
   margin: 8px 0 6px 0;
 }
+.command .options dd div span {
+  font-size: 15px;
+  font-weight: 600;
+}
 .command .options dd ul {
-  list-style-type: disc;
-  list-style-position: outside;
-  margin-left: 20px;
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  display:inline-flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0;
+  margin-left: 5px;
+}
+
+.command .options dd ul li {
+  margin: 0;
+  padding: 0;
+  margin-left: 5px;
+}
+
+.command .options dd ul li:after {
+  content: " | ";
+}
+.command .options dd ul li:last-child:after {
+  content: "";
 }
 
 .command .available ul {
