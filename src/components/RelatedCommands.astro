@@ -35,19 +35,21 @@ let relatedCommands = Object.keys(manifest).filter(function (item) {
 relatedCommands = relatedCommands.slice(0, 5);
 ---
 
-<section class="related">
-  <h3>Related Commands</h3>
+{
+  relatedCommands.length > 0 && (
+    <section class="related">
+      <h3>Related Commands</h3>
 
-  <ul>
-    {
-      relatedCommands.map((item) => (
-        <li>
-          <a href={siteUrl + "/command/" + item}>{item}</a>
-        </li>
-      ))
-    }
-  </ul>
-</section><!-- .related -->
+      <ul>
+        {relatedCommands.map((item) => (
+          <li>
+            <a href={siteUrl + "/command/" + item}>{item}</a>
+          </li>
+        ))}
+      </ul>
+    </section>
+  )
+}
 
 <style lang="scss">
   .related {
