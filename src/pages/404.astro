@@ -1,0 +1,36 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+
+const siteUrl = import.meta.env.BASE_URL;
+---
+
+<BaseLayout title="404 - WP CLI">
+  <div class="error-404">
+    <h1>404</h1>
+    <p>Page Not Found</p>
+
+    <a href={siteUrl}>Go Home -></a>
+  </div>
+</BaseLayout>
+
+<style style="scss">
+  h1 {
+    font-size: 5em;
+    color: #be862d;
+    margin-top: 0;
+    padding-top: 0;
+  }
+
+  p {
+    font-size: 2em;
+    margin-bottom: 30px;
+  }
+
+  a {
+    text-decoration: none;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+</style>
