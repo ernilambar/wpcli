@@ -2322,10 +2322,10 @@
     "i18n-update-po": {
         "title": "i18n update-po",
         "excerpt": "Update PO files from a POT file.",
-        "options": "<dl><dt>&lt;source&gt;<\/dt><dd><p>Path to an existing POT file to use for updating<\/p><\/dd><dt>[&lt;destination&gt;]<\/dt><dd><p>PO file to update or a directory containing multiple PO files.   Defaults to all PO files in the source directory.<\/p><\/dd><\/dl>",
+        "options": "<dl><dt>&lt;source&gt;<\/dt><dd><p>Path to an existing POT file to use for updating.<\/p><\/dd><dt>[&lt;destination&gt;]<\/dt><dd><p>PO file to update or a directory containing multiple PO files.   Defaults to all PO files in the source directory.<\/p><\/dd><\/dl>",
         "options_extra": "<p>This behaves similarly to the <a href=\"https:\/\/www.gnu.org\/software\/gettext\/manual\/html_node\/msgmerge-Invocation.html\">msgmerge<\/a> command.<\/p>",
         "has_child": 0,
-        "examples": "",
+        "examples": "# Update all PO files from a POT file in the current directory.\n$ wp i18n update-po example-plugin.pot\nSuccess: Updated 3 files.\n\n# Update a PO file from a POT file.\n$ wp i18n update-po example-plugin.pot example-plugin-de_DE.po\nSuccess: Updated 1 file.\n\n# Update all PO files in a given directory from a POT file.\n$ wp i18n update-po example-plugin.pot languages\nSuccess: Updated 2 files.",
         "available": "",
         "synopsis": "wp i18n update-po <source> [<destination>]"
     },
