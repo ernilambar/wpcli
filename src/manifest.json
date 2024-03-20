@@ -59,6 +59,16 @@
         "available": "",
         "synopsis": "wp eval <php-code> [--skip-wordpress]"
     },
+    "find": {
+        "title": "find",
+        "excerpt": "Find WordPress installations on the filesystem.",
+        "options": "",
+        "options_extra": "<p>Recursively iterates subdirectories of provided <path> to find and\nreport WordPress installations. A WordPress installation is a wp-includes\ndirectory with a version.php file.<\/p>\n<p>Avoids recursing some known paths (e.g. \/node_modules\/, hidden sys dirs)\nto significantly improve performance.<\/p>\n<p>Indicates depth at which the WordPress installations was found, and its\nalias, if it has one.<\/p>\n<pre><code>$ wp find .\/\n+--------------------------------------+---------------------+-------+--------+\n| version_path                         | version             | depth | alias  |\n+--------------------------------------+---------------------+-------+--------+\n| \/Users\/wpcli\/wp-includes\/version.php | 4.8-alpha-39357-src | 2     | @wpcli |\n+--------------------------------------+---------------------+-------+--------+<\/code><\/pre>",
+        "has_child": 0,
+        "examples": "",
+        "available": "<p>These fields will be displayed by default for each installation:<\/p>\n<ul>\n<li>version_path - Path to the version.php file.<\/li>\n<li>version - WordPress version.<\/li>\n<li>depth - Directory depth at which the installation was found.<\/li>\n<li>alias - WP-CLI alias, if one is registered.<\/li>\n<\/ul>\n<p>These fields are optionally available:<\/p>\n<ul>\n<li>wp_path - Path that can be passed to <code>--path=&lt;path&gt;<\/code> global parameter.<\/li>\n<li>db_host - Host name for the database.<\/li>\n<li>db_user - User name for the database.<\/li>\n<li>db_name - Database name for the database.<\/li>\n<\/ul>\n<h2>OPTIONS<\/h2>\n<path>\n: Path to search the subdirectories of.\n\n[--skip-ignored-paths]\n: Skip the paths that are ignored by default.\n\n[--include_ignored_paths=<paths>]\n: Include additional ignored paths as CSV (e.g. '\/sys-backup\/,\/temp\/').\n\n[--max_depth=<max-depth>]\n: Only recurse to a specified depth, inclusive.\n\n[--fields=<fields>]\n: Limit the output to specific row fields.\n\n[--field=<field>]\n: Output a specific field for each row.\n\n[--format=<format>]\n: Render output in a specific format.\n---\ndefault: table\noptions:\n  - table\n  - json\n  - csv\n  - yaml\n  - count\n---\n\n[--verbose]\n: Log useful information to STDOUT.",
+        "synopsis": "wp find <path> [--skip-ignored-paths] [--include_ignored_paths=<paths>] [--max_depth=<max-depth>] [--fields=<fields>] [--field=<field>] [--format=<format>] [--verbose]"
+    },
     "help": {
         "title": "help",
         "excerpt": "Gets help on WP-CLI, or on a specific command.",
@@ -139,6 +149,16 @@
         "available": "",
         "synopsis": ""
     },
+    "admin": {
+        "title": "admin",
+        "excerpt": "Open \/wp-admin\/ in a browser.",
+        "options": "",
+        "options_extra": "",
+        "has_child": 0,
+        "examples": "",
+        "available": "",
+        "synopsis": ""
+    },
     "cache": {
         "title": "cache",
         "excerpt": "Adds, removes, fetches, and flushes the WP Object Cache object.",
@@ -165,7 +185,7 @@
         "options": "",
         "options_extra": "",
         "has_child": 1,
-        "examples": "# Re-generate all thumbnails, without confirmation.\n$ wp media regenerate --yes\nFound 3 images to regenerate.\n1\/3 Regenerated thumbnails for \"Sydney Harbor Bridge\" (ID 760).\n2\/3 Regenerated thumbnails for \"Boardwalk\" (ID 757).\n3\/3 Regenerated thumbnails for \"Sunburst Over River\" (ID 756).\nSuccess: Regenerated 3 of 3 images.\n\n# Import a local image and set it to be the featured image for a post.\n$ wp media import ~\/Downloads\/image.png --post_id=123 --title=\"A downloaded picture\" --featured_image\nSuccess: Imported file '\/home\/person\/Downloads\/image.png' as attachment ID 1753 and attached to post 123 as featured image.\n\n# List all registered image sizes\n$ wp media image-size\n+---------------------------+-------+--------+-------+\n| name                      | width | height | crop  |\n+---------------------------+-------+--------+-------+\n| full                      |       |        | N\/A   |\n| twentyfourteen-full-width | 1038  | 576    | hard  |\n| large                     | 1024  | 1024   | soft  |\n| medium_large              | 768   | 0      | soft  |\n| medium                    | 300   | 300    | soft  |\n| thumbnail                 | 150   | 150    | hard  |\n+---------------------------+-------+--------+-------+",
+        "examples": "# Re-generate all thumbnails, without confirmation.\n$ wp media regenerate --yes\nFound 3 images to regenerate.\n1\/3 Regenerated thumbnails for \"Sydney Harbor Bridge\" (ID 760).\n2\/3 Regenerated thumbnails for \"Boardwalk\" (ID 757).\n3\/3 Regenerated thumbnails for \"Sunburst Over River\" (ID 756).\nSuccess: Regenerated 3 of 3 images.\n\n# Import a local image and set it to be the featured image for a post.\n$ wp media import ~\/Downloads\/image.png --post_id=123 --title=\"A downloaded picture\" --featured_image\nImported file '\/home\/person\/Downloads\/image.png' as attachment ID 1753 and attached to post 123 as featured image.\nSuccess: Imported 1 of 1 images.\n\n# List all registered image sizes\n$ wp media image-size\n+---------------------------+-------+--------+-------+\n| name                      | width | height | crop  |\n+---------------------------+-------+--------+-------+\n| full                      |       |        | N\/A   |\n| twentyfourteen-full-width | 1038  | 576    | hard  |\n| large                     | 1024  | 1024   | soft  |\n| medium_large              | 768   | 0      | soft  |\n| medium                    | 300   | 300    | soft  |\n| thumbnail                 | 150   | 150    | hard  |\n+---------------------------+-------+--------+-------+\n\n# Fix orientation for specific images.\n$ wp media fix-orientation 63\n1\/1 Fixing orientation for \"Portrait_6\" (ID 63).\nSuccess: Fixed 1 of 1 images.",
         "available": "",
         "synopsis": ""
     },
@@ -185,7 +205,7 @@
         "options": "",
         "options_extra": "<p>See the WordPress <a href=\"https:\/\/developer.wordpress.org\/themes\/\">Theme Handbook<\/a> developer resource for more information on themes.<\/p>",
         "has_child": 1,
-        "examples": "# Install the latest version of a theme from wordpress.org and activate\n$ wp theme install twentysixteen --activate\nInstalling Twenty Sixteen (1.2)\nDownloading install package from http:\/\/downloads.wordpress.org\/theme\/twentysixteen.1.2.zip...\nUnpacking the package...\nInstalling the theme...\nTheme installed successfully.\nActivating 'twentysixteen'...\nSuccess: Switched to 'Twenty Sixteen' theme.\n\n# Get details of an installed theme\n$ wp theme get twentysixteen --fields=name,title,version\n+---------+----------------+\n| Field   | Value          |\n+---------+----------------+\n| name    | Twenty Sixteen |\n| title   | Twenty Sixteen |\n| version | 1.2            |\n+---------+----------------+\n\n# Get status of theme\n$ wp theme status twentysixteen\nTheme twentysixteen details:\nName: Twenty Sixteen\nStatus: Active\nVersion: 1.2\nAuthor: the WordPress team",
+        "examples": "# Install the latest version of a theme from wordpress.org and activate\n$ wp theme install twentysixteen --activate\nInstalling Twenty Sixteen (1.2)\nDownloading install package from http:\/\/downloads.wordpress.org\/theme\/twentysixteen.1.2.zip...\nUnpacking the package...\nInstalling the theme...\nTheme installed successfully.\nActivating 'twentysixteen'...\nSuccess: Switched to 'Twenty Sixteen' theme.\nSuccess: Installed 1 of 1 themes.\n\n# Get details of an installed theme\n$ wp theme get twentysixteen --fields=name,title,version\n+---------+----------------+\n| Field   | Value          |\n+---------+----------------+\n| name    | Twenty Sixteen |\n| title   | Twenty Sixteen |\n| version | 1.2            |\n+---------+----------------+\n\n# Get status of theme\n$ wp theme status twentysixteen\nTheme twentysixteen details:\nName: Twenty Sixteen\nStatus: Active\nVersion: 1.2\nAuthor: the WordPress team",
         "available": "",
         "synopsis": ""
     },
@@ -208,6 +228,16 @@
         "examples": "# Open MySQL console\n$ wp db cli\nmysql>",
         "available": "",
         "synopsis": "wp db cli [--database=<database>] [--default-character-set=<character-set>] [--dbuser=<value>] [--dbpass=<value>] [--<field>=<value>] [--defaults]"
+    },
+    "doctor": {
+        "title": "doctor",
+        "excerpt": "Diagnose what ails WordPress.",
+        "options": "",
+        "options_extra": "",
+        "has_child": 1,
+        "examples": "",
+        "available": "",
+        "synopsis": ""
     },
     "export": {
         "title": "export",
@@ -329,6 +359,16 @@
         "available": "",
         "synopsis": ""
     },
+    "profile": {
+        "title": "profile",
+        "excerpt": "Quickly identify what's slow with WordPress.",
+        "options": "",
+        "options_extra": "",
+        "has_child": 1,
+        "examples": "# See an overview for each stage of the load process.\n$ wp profile stage --fields=stage,time,cache_ratio\n+------------+---------+-------------+\n| stage      | time    | cache_ratio |\n+------------+---------+-------------+\n| bootstrap  | 0.7994s | 93.21%      |\n| main_query | 0.0123s | 94.29%      |\n| template   | 0.792s  | 91.23%      |\n+------------+---------+-------------+\n| total (3)  | 1.6037s | 92.91%      |\n+------------+---------+-------------+\n\n# Dive into hook performance for a given stage.\n$ wp profile stage bootstrap --fields=hook,time,cache_ratio --spotlight\n+--------------------------+---------+-------------+\n| hook                     | time    | cache_ratio |\n+--------------------------+---------+-------------+\n| muplugins_loaded:before  | 0.2335s | 40%         |\n| muplugins_loaded         | 0.0007s | 50%         |\n| plugins_loaded:before    | 0.2792s | 77.63%      |\n| plugins_loaded           | 0.1502s | 100%        |\n| after_setup_theme:before | 0.068s  | 100%        |\n| init                     | 0.2643s | 96.88%      |\n| wp_loaded:after          | 0.0377s |             |\n+--------------------------+---------+-------------+\n| total (7)                | 1.0335s | 77.42%      |\n+--------------------------+---------+-------------+",
+        "available": "",
+        "synopsis": ""
+    },
     "rewrite": {
         "title": "rewrite",
         "excerpt": "Lists or flushes the site's rewrite rules, updates the permalink structure.",
@@ -415,7 +455,7 @@
         "options": "",
         "options_extra": "",
         "has_child": 1,
-        "examples": "# Install the Dutch core language pack.\n$ wp language core install nl_NL\nSuccess: Language installed.\n\n# Activate the Dutch core language pack.\n$ wp language core activate nl_NL\nSuccess: Language activated.\n\n# Install the Dutch language pack for Twenty Seventeen.\n$ wp language theme install twentyseventeen nl_NL\nSuccess: Language installed.\n\n# Install the Dutch language pack for Akismet.\n$ wp language plugin install akismet nl_NL\nSuccess: Language installed.",
+        "examples": "# Install the Dutch core language pack.\n$ wp language core install nl_NL\nDownloading translation from https:\/\/downloads.wordpress.org\/translation\/core\/6.4.3\/nl_NL.zip...\nUnpacking the update...\nInstalling the latest version...\nRemoving the old version of the translation...\nTranslation updated successfully.\nLanguage 'nl_NL' installed.\nSuccess: Installed 1 of 1 languages.\n\n# Activate the Dutch core language pack.\n$ wp site switch-language nl_NL\nSuccess: Language activated.\n\n# Install the Dutch theme language pack for Twenty Ten.\n$ wp language theme install twentyten nl_NL\nDownloading translation from https:\/\/downloads.wordpress.org\/translation\/theme\/twentyten\/4.0\/nl_NL.zip...\nUnpacking the update...\nInstalling the latest version...\nRemoving the old version of the translation...\nTranslation updated successfully.\nLanguage 'nl_NL' installed.\nSuccess: Installed 1 of 1 languages.\n\n# Install the Dutch plugin language pack for Hello Dolly.\n$ wp language plugin install hello-dolly nl_NL\nDownloading translation from https:\/\/downloads.wordpress.org\/translation\/plugin\/hello-dolly\/1.7.2\/nl_NL.zip...\nUnpacking the update...\nInstalling the latest version...\nRemoving the old version of the translation...\nTranslation updated successfully.\nLanguage 'nl_NL' installed.\nSuccess: Installed 1 of 1 languages.",
         "available": "",
         "synopsis": ""
     },
@@ -755,7 +795,7 @@
         "options": "",
         "options_extra": "",
         "has_child": 1,
-        "examples": "# Set the 'background_color' theme mod to '000000'.\n$ wp theme mod set background_color 000000\nSuccess: Theme mod background_color set to 000000\n\n# Get single theme mod in JSON format.\n$ wp theme mod get background_color --format=json\n[{\"key\":\"background_color\",\"value\":\"dd3333\"}]\n\n# Remove all theme mods.\n$ wp theme mod remove --all\nSuccess: Theme mods removed.",
+        "examples": "# Set the 'background_color' theme mod to '000000'.\n$ wp theme mod set background_color 000000\nSuccess: Theme mod background_color set to 000000.\n\n# Get single theme mod in JSON format.\n$ wp theme mod get background_color --format=json\n[{\"key\":\"background_color\",\"value\":\"dd3333\"}]\n\n# Remove all theme mods.\n$ wp theme mod remove --all\nSuccess: Theme mods removed.",
         "available": "",
         "synopsis": ""
     },
@@ -895,7 +935,7 @@
         "options": "",
         "options_extra": "",
         "has_child": 1,
-        "examples": "# Schedule a new cron event\n$ wp cron event schedule cron_test\nSuccess: Scheduled event with hook 'cron_test' for 2016-05-31 10:19:16 GMT.\n\n# Run all cron events due right now\n$ wp cron event run --due-now\nSuccess: Executed a total of 2 cron events.\n\n# Delete all scheduled cron events for the given hook\n$ wp cron event delete cron_test\nSuccess: Deleted 2 instances of the cron event 'cron_test'.\n\n# List scheduled cron events in JSON\n$ wp cron event list --fields=hook,next_run --format=json\n[{\"hook\":\"wp_version_check\",\"next_run\":\"2016-05-31 10:15:13\"},{\"hook\":\"wp_update_plugins\",\"next_run\":\"2016-05-31 10:15:13\"},{\"hook\":\"wp_update_themes\",\"next_run\":\"2016-05-31 10:15:14\"}]",
+        "examples": "# Schedule a new cron event\n$ wp cron event schedule cron_test\nSuccess: Scheduled event with hook 'cron_test' for 2016-05-31 10:19:16 GMT.\n\n# Run all cron events due right now\n$ wp cron event run --due-now\nExecuted the cron event 'cron_test_1' in 0.01s.\nExecuted the cron event 'cron_test_2' in 0.006s.\nSuccess: Executed a total of 2 cron events.\n\n# Delete all scheduled cron events for the given hook\n$ wp cron event delete cron_test\nSuccess: Deleted a total of 2 cron events.\n\n# List scheduled cron events in JSON\n$ wp cron event list --fields=hook,next_run --format=json\n[{\"hook\":\"wp_version_check\",\"next_run\":\"2016-05-31 10:15:13\"},{\"hook\":\"wp_update_plugins\",\"next_run\":\"2016-05-31 10:15:13\"},{\"hook\":\"wp_update_themes\",\"next_run\":\"2016-05-31 10:15:14\"}]",
         "available": "",
         "synopsis": ""
     },
@@ -965,8 +1005,8 @@
         "options": "<dl><dt>[--&lt;field&gt;=&lt;value&gt;]<\/dt><dd><p>Filter results based on the value of a field.<\/p><\/dd><dt>[--field=&lt;field&gt;]<\/dt><dd><p>Prints the value of a single field for each theme.<\/p><\/dd><dt>[--fields=&lt;fields&gt;]<\/dt><dd><p>Limit the output to specific object fields.<\/p><\/dd><dt>[--format=&lt;format&gt;]<\/dt><dd><p>Render output in a particular format. [Default: table]<div><span>Options:<\/span><ul><li><code>table<\/code><\/li><li><code>csv<\/code><\/li><li><code>json<\/code><\/li><li><code>count<\/code><\/li><li><code>yaml<\/code><\/li><\/ul><\/div><\/p><\/dd><dt>[--status=&lt;status&gt;]<\/dt><dd><p>Filter the output by theme status.<div><span>Options:<\/span><ul><li><code>active<\/code><\/li><li><code>parent<\/code><\/li><li><code>inactive<\/code><\/li><\/ul><\/div><\/p><\/dd><dt>[--skip-update-check]<\/dt><dd><p>If set, the theme update check will be skipped.<\/p><\/dd><\/dl>",
         "options_extra": "",
         "has_child": 0,
-        "examples": "# List themes\n$ wp theme list --status=inactive --format=csv\nname,status,update,version,update_version\ntwentyfourteen,inactive,none,1.7,\ntwentysixteen,inactive,available,1.1,",
-        "available": "<p>These fields will be displayed by default for each theme:<\/p>\n<ul>\n<li>name<\/li>\n<li>status<\/li>\n<li>update<\/li>\n<li>version<\/li>\n<li>update_version<\/li>\n<\/ul>\n<p>These fields are optionally available:<\/p>\n<ul>\n<li>update_package<\/li>\n<li>update_id<\/li>\n<li>title<\/li>\n<li>description<\/li>\n<li>auto_update<\/li>\n<\/ul>",
+        "examples": "# List inactive themes.\n$ wp theme list --status=inactive --format=csv\nname,status,update,version,update_version,auto_update\ntwentyfourteen,inactive,none,3.8,,off\ntwentysixteen,inactive,available,3.0,3.1,off",
+        "available": "<p>These fields will be displayed by default for each theme:<\/p>\n<ul>\n<li>name<\/li>\n<li>status<\/li>\n<li>update<\/li>\n<li>version<\/li>\n<li>update_version<\/li>\n<li>auto_update<\/li>\n<\/ul>\n<p>These fields are optionally available:<\/p>\n<ul>\n<li>update_package<\/li>\n<li>update_id<\/li>\n<li>title<\/li>\n<li>description<\/li>\n<\/ul>",
         "synopsis": "wp theme list [--<field>=<value>] [--field=<field>] [--fields=<fields>] [--format=<format>] [--status=<status>] [--skip-update-check]"
     },
     "theme-path": {
@@ -1069,6 +1109,16 @@
         "available": "",
         "synopsis": "wp db optimize [--dbuser=<value>] [--dbpass=<value>] [--<field>=<value>] [--defaults]"
     },
+    "doctor-list": {
+        "title": "doctor list",
+        "excerpt": "List all available checks to run.",
+        "options": "<dl><dt>[--config=&lt;file&gt;]<\/dt><dd><p>Use checks registered in a specific configuration file.<\/p><\/dd><dt>[--fields=&lt;fields&gt;]<\/dt><dd><p>Limit the output to specific fields. Defaults to name,description.<\/p><\/dd><dt>[--format=&lt;format&gt;]<\/dt><dd><p>Render output in a specific format. [Default: table]<div><span>Options:<\/span><ul><li><code>table<\/code><\/li><li><code>json<\/code><\/li><li><code>csv<\/code><\/li><li><code>count<\/code><\/li><\/ul><\/div><\/p><\/dd><\/dl>",
+        "options_extra": "",
+        "has_child": 0,
+        "examples": "$ wp doctor list\n+-------------+---------------------------------------------+\n| name        | description                                 |\n+-------------+---------------------------------------------+\n| core-update | Check whether WordPress core is up to date. |\n+-------------+---------------------------------------------+",
+        "available": "",
+        "synopsis": "wp doctor list [--config=<file>] [--fields=<fields>] [--format=<format>]"
+    },
     "embed-cache": {
         "title": "embed cache",
         "excerpt": "Finds, triggers, and deletes oEmbed caches.",
@@ -1088,6 +1138,16 @@
         "examples": "# Get embed HTML for a given URL.\n$ wp embed fetch https:\/\/www.youtube.com\/watch?v=dQw4w9WgXcQ\n<iframe width=\"525\" height=\"295\" src=\"https:\/\/www.youtube.com\/embed\/dQw4w9WgXcQ?feature=oembed\" ...\n\n# Get raw oEmbed data for a given URL.\n$ wp embed fetch https:\/\/www.youtube.com\/watch?v=dQw4w9WgXcQ --raw\n{\"author_url\":\"https:\\\/\\\/www.youtube.com\\\/user\\\/RickAstleyVEVO\",\"width\":525,\"version\":\"1.0\", ...",
         "available": "",
         "synopsis": "wp embed fetch <url> [--width=<width>] [--height=<height>] [--post-id=<id>] [--discover] [--skip-cache] [--skip-sanitization] [--do-shortcode] [--limit-response-size=<size>] [--raw] [--raw-format=<json|xml>]"
+    },
+    "maintenance": {
+        "title": "maintenance",
+        "excerpt": "Provides tools to manage the WP-CLI GitHub organization and the release process.",
+        "options": "",
+        "options_extra": "",
+        "has_child": 1,
+        "examples": "",
+        "available": "",
+        "synopsis": ""
     },
     "menu-create": {
         "title": "menu create",
@@ -1125,8 +1185,8 @@
         "options": "<dl><dt>[--&lt;field&gt;=&lt;value&gt;]<\/dt><dd><p>Filter results based on the value of a field.<\/p><\/dd><dt>[--field=&lt;field&gt;]<\/dt><dd><p>Prints the value of a single field for each plugin.<\/p><\/dd><dt>[--fields=&lt;fields&gt;]<\/dt><dd><p>Limit the output to specific object fields.<\/p><\/dd><dt>[--format=&lt;format&gt;]<\/dt><dd><p>Render output in a particular format. [Default: table]<div><span>Options:<\/span><ul><li><code>table<\/code><\/li><li><code>csv<\/code><\/li><li><code>count<\/code><\/li><li><code>json<\/code><\/li><li><code>yaml<\/code><\/li><\/ul><\/div><\/p><\/dd><dt>[--status=&lt;status&gt;]<\/dt><dd><p>Filter the output by plugin status.<div><span>Options:<\/span><ul><li><code>active<\/code><\/li><li><code>activenetwork<\/code><\/li><li><code>dropin<\/code><\/li><li><code>inactive<\/code><\/li><li><code>mustuse<\/code><\/li><\/ul><\/div><\/p><\/dd><dt>[--skip-update-check]<\/dt><dd><p>If set, the plugin update check will be skipped.<\/p><\/dd><\/dl>",
         "options_extra": "<p>Displays a list of the plugins installed on the site with activation\nstatus, whether or not there's an update available, etc.<\/p>\n<p>Use <code>--status=dropin<\/code> to list installed dropins (e.g. <code>object-cache.php<\/code>).<\/p>",
         "has_child": 0,
-        "examples": "# List active plugins on the site.\n$ wp plugin list --status=active --format=json\n[{\"name\":\"dynamic-hostname\",\"status\":\"active\",\"update\":\"none\",\"version\":\"0.4.2\",\"update_version\": \"\"},{\"name\":\"tinymce-templates\",\"status\":\"active\",\"update\":\"none\",\"version\":\"4.4.3\",\"update_version\": \"\"},{\"name\":\"wp-multibyte-patch\",\"status\":\"active\",\"update\":\"none\",\"version\":\"2.4\",\"update_version\": \"\"},{\"name\":\"wp-total-hacks\",\"status\":\"active\",\"update\":\"none\",\"version\":\"2.0.1\",\"update_version\": \"\"}]\n\n# List plugins on each site in a network.\n$ wp site list --field=url | xargs -I % wp plugin list --url=%\n+---------+----------------+--------+---------+----------------+\n| name    | status         | update | version | update_version |\n+---------+----------------+--------+---------+----------------+\n| akismet | active-network | none   | 3.1.11  |                |\n| hello   | inactive       | none   | 1.6     | 1.7.2          |\n+---------+----------------+--------+---------+----------------+\n+---------+----------------+--------+---------+----------------+\n| name    | status         | update | version | update_version |\n+---------+----------------+--------+---------+----------------+\n| akismet | active-network | none   | 3.1.11  |                |\n| hello   | inactive       | none   | 1.6     | 1.7.2          |\n+---------+----------------+--------+---------+----------------+\n\n# Check whether plugins are still active on WordPress.org\n$ wp plugin list --format=csv --fields=name,wporg_status,wporg_last_updated\n+--------------------+--------------+--------------------+\n| name               | wporg_status | wporg_last_updated |\n+--------------------+--------------+--------------------+\n| akismet            | active       | 2023-12-11         |\n| user-switching     | active       | 2023-11-17         |\n| wordpress-importer | active       | 2023-04-28         |\n| local              |              |                    |\n+--------------------+--------------+--------------------+",
-        "available": "<p>These fields will be displayed by default for each plugin:<\/p>\n<ul>\n<li>name<\/li>\n<li>status<\/li>\n<li>update<\/li>\n<li>version<\/li>\n<li>update_version<\/li>\n<\/ul>\n<p>These fields are optionally available:<\/p>\n<ul>\n<li>update_package<\/li>\n<li>update_id<\/li>\n<li>title<\/li>\n<li>description<\/li>\n<li>file<\/li>\n<li>auto_update<\/li>\n<li>author<\/li>\n<li>wporg_status<\/li>\n<li>wporg_last_updated<\/li>\n<\/ul>",
+        "examples": "# List active plugins on the site.\n$ wp plugin list --status=active --format=json\n[{\"name\":\"dynamic-hostname\",\"status\":\"active\",\"update\":\"none\",\"version\":\"0.4.2\",\"update_version\":\"\",\"auto_update\":\"off\"},{\"name\":\"tinymce-templates\",\"status\":\"active\",\"update\":\"none\",\"version\":\"4.8.1\",\"update_version\":\"\",\"auto_update\":\"off\"},{\"name\":\"wp-multibyte-patch\",\"status\":\"active\",\"update\":\"none\",\"version\":\"2.9\",\"update_version\":\"\",\"auto_update\":\"off\"},{\"name\":\"wp-total-hacks\",\"status\":\"active\",\"update\":\"none\",\"version\":\"4.7.2\",\"update_version\":\"\",\"auto_update\":\"off\"}]\n\n# List plugins on each site in a network.\n$ wp site list --field=url | xargs -I % wp plugin list --url=%\n+---------+----------------+-----------+---------+-----------------+------------+\n| name    | status         | update    | version | update_version | auto_update |\n+---------+----------------+-----------+---------+----------------+-------------+\n| akismet | active-network | none      | 5.3.1   |                | on          |\n| hello   | inactive       | available | 1.6     | 1.7.2          | off         |\n+---------+----------------+-----------+---------+----------------+-------------+\n+---------+----------------+-----------+---------+----------------+-------------+\n| name    | status         | update    | version | update_version | auto_update |\n+---------+----------------+-----------+---------+----------------+-------------+\n| akismet | active-network | none      | 5.3.1   |                | on          |\n| hello   | inactive       | available | 1.6     | 1.7.2          | off         |\n+---------+----------------+-----------+---------+----------------+-------------+\n\n# Check whether plugins are still active on WordPress.org\n$ wp plugin list --fields=name,wporg_status,wporg_last_updated\n+--------------------+--------------+--------------------+\n| name               | wporg_status | wporg_last_updated |\n+--------------------+--------------+--------------------+\n| akismet            | active       | 2023-12-11         |\n| user-switching     | active       | 2023-11-17         |\n| wordpress-importer | active       | 2023-04-28         |\n| local              |              |                    |\n+--------------------+--------------+--------------------+",
+        "available": "<p>These fields will be displayed by default for each plugin:<\/p>\n<ul>\n<li>name<\/li>\n<li>status<\/li>\n<li>update<\/li>\n<li>version<\/li>\n<li>update_version<\/li>\n<li>auto_update<\/li>\n<\/ul>\n<p>These fields are optionally available:<\/p>\n<ul>\n<li>update_package<\/li>\n<li>update_id<\/li>\n<li>title<\/li>\n<li>description<\/li>\n<li>file<\/li>\n<li>author<\/li>\n<li>wporg_status<\/li>\n<li>wporg_last_updated<\/li>\n<\/ul>",
         "synopsis": "wp plugin list [--<field>=<value>] [--field=<field>] [--fields=<fields>] [--format=<format>] [--status=<status>] [--skip-update-check]"
     },
     "plugin-path": {
@@ -1275,7 +1335,17 @@
         "options": "",
         "options_extra": "",
         "has_child": 1,
-        "examples": "# List user with super-admin capabilities\n$ wp super-admin list\nsupervisor\nadministrator\n\n# Grant super-admin privileges to the user.\n$ wp super-admin add superadmin2\nSuccess: Granted super-admin capabilities.\n\n# Revoke super-admin privileges to the user.\n$ wp super-admin remove superadmin2\nSuccess: Revoked super-admin capabilities.",
+        "examples": "# List user with super-admin capabilities.\n$ wp super-admin list\nsupervisor\nadministrator\n\n# Grant super-admin privileges to the user.\n$ wp super-admin add superadmin2\nSuccess: Granted super-admin capabilities to 1 user.\n\n# Revoke super-admin privileges from the user.\n$ wp super-admin remove superadmin2\nSuccess: Revoked super-admin capabilities from 1 user.",
+        "available": "",
+        "synopsis": ""
+    },
+    "super-cache": {
+        "title": "super-cache",
+        "excerpt": "Manages the WP Super Cache plugin",
+        "options": "",
+        "options_extra": "",
+        "has_child": 1,
+        "examples": "",
         "available": "",
         "synopsis": ""
     },
@@ -1449,6 +1519,26 @@
         "available": "",
         "synopsis": "wp core version [--extra]"
     },
+    "dist-archive": {
+        "title": "dist-archive",
+        "excerpt": "Create a distribution archive based on a project's .distignore file.",
+        "options": "<dl><dt>&lt;path&gt;<\/dt><dd><p>Path to the project that includes a .distignore file.<\/p><\/dd><dt>[&lt;target&gt;]<\/dt><dd><p>Path and optional file name for the distribution archive. If only a path is provided, the file name defaults to the project directory name plus the version, if discoverable. Also, if only a path is given, the directory that it points to has to already exist for the command to function correctly.<\/p><\/dd><dt>[--create-target-dir]<\/dt><dd><p>Automatically create the target directory as needed.<\/p><\/dd><dt>[--plugin-dirname=&lt;plugin-slug&gt;]<\/dt><dd><p>Set the archive extract directory name. Defaults to project directory name.<\/p><\/dd><dt>[--format=&lt;format&gt;]<\/dt><dd><p>Choose the format for the archive. [Default: zip]<div><span>Options:<\/span><ul><li><code>zip<\/code><\/li><li><code>targz<\/code><\/li><\/ul><\/div><\/p><\/dd><dt>[--filename-format=&lt;filename-format&gt;]<\/dt><dd><p>Use a custom format for archive filename. Available substitutions: {name}, {version}. This is ignored if the <target> parameter is provided or the version cannot be determined. [Default: &quot;{name}.{version}&quot;]<\/p><\/dd><\/dl>",
+        "options_extra": "<p>For a plugin in a directory 'wp-content\/plugins\/hello-world', this command\ncreates a distribution archive 'wp-content\/plugins\/hello-world.zip'.<\/p>\n<p>You can specify files or directories you'd like to exclude from the archive\nwith a .distignore file in your project repository:<\/p>\n<pre><code>.distignore\n.editorconfig\n.git\n.gitignore\n.travis.yml\ncircle.yml<\/code><\/pre>\n<p>Use one distribution archive command for many projects, instead of a bash\nscript in each project.<\/p>",
+        "has_child": 0,
+        "examples": "",
+        "available": "",
+        "synopsis": "wp dist-archive <path> [<target>] [--create-target-dir] [--plugin-dirname=<plugin-slug>] [--format=<format>] [--filename-format=<filename-format>]"
+    },
+    "doctor-check": {
+        "title": "doctor check",
+        "excerpt": "Run a series of checks against WordPress to diagnose issues.",
+        "options": "<dl><dt>[&lt;checks&gt;...]<\/dt><dd><p>Names of one or more checks to run.<\/p><\/dd><dt>[--all]<\/dt><dd><p>Run all registered checks.<\/p><\/dd><dt>[--spotlight]<\/dt><dd><p>Focus on warnings and errors; ignore any successful checks.<\/p><\/dd><dt>[--config=&lt;file&gt;]<\/dt><dd><p>Use checks registered in a specific configuration file.<\/p><\/dd><dt>[--fields=&lt;fields&gt;]<\/dt><dd><p>Limit the output to specific fields. Default is name,status,message.<\/p><\/dd><dt>[--format=&lt;format&gt;]<\/dt><dd><p>Render results in a particular format. [Default: table]<div><span>Options:<\/span><ul><li><code>table<\/code><\/li><li><code>json<\/code><\/li><li><code>csv<\/code><\/li><li><code>yaml<\/code><\/li><li><code>count<\/code><\/li><\/ul><\/div><\/p><\/dd><\/dl>",
+        "options_extra": "<p>A check is a routine run against some scope of WordPress that reports\na 'status' and a 'message'. The status can be 'success', 'warning', or\n'error'. The message is a human-readable explanation of the status. If\nany of the checks fail, then the command will exit with the code <code>1<\/code>.<\/p>",
+        "has_child": 0,
+        "examples": "# Verify WordPress core is up to date.\n$ wp doctor check core-update\n+-------------+---------+-----------------------------------------------------------+\n| name        | status  | message                                                   |\n+-------------+---------+-----------------------------------------------------------+\n| core-update | warning | A new major version of WordPress is available for update. |\n+-------------+---------+-----------------------------------------------------------+\n\n# Verify the site is public as expected.\n$ wp doctor check option-blog-public\n+--------------------+--------+--------------------------------------------+\n| name               | status | message                                    |\n+--------------------+--------+--------------------------------------------+\n| option-blog-public | error  | Site is private but expected to be public. |\n+--------------------+--------+--------------------------------------------+",
+        "available": "",
+        "synopsis": "wp doctor check [<checks>...] [--all] [--spotlight] [--config=<file>] [--fields=<fields>] [--format=<format>]"
+    },
     "i18n-make-mo": {
         "title": "i18n make-mo",
         "excerpt": "Create MO files from PO files.",
@@ -1518,6 +1608,26 @@
         "examples": "# Get package path\n$ wp package path\n\/home\/person\/.wp-cli\/packages\/\n\n# Change directory to package path\n$ cd $(wp package path) && pwd\n\/home\/vagrant\/.wp-cli\/packages",
         "available": "",
         "synopsis": "wp package path [<name>]"
+    },
+    "profile-eval": {
+        "title": "profile eval",
+        "excerpt": "Profile arbitrary code execution.",
+        "options": "<dl><dt>&lt;php-code&gt;<\/dt><dd><p>The code to execute, as a string.<\/p><\/dd><dt>[--hook[=&lt;hook&gt;]]<\/dt><dd><p>Focus on key metrics for all hooks, or callbacks on a specific hook.<\/p><\/dd><dt>[--fields=&lt;fields&gt;]<\/dt><dd><p>Display one or more fields.<\/p><\/dd><dt>[--format=&lt;format&gt;]<\/dt><dd><p>Render output in a particular format. [Default: table]<div><span>Options:<\/span><ul><li><code>table<\/code><\/li><li><code>json<\/code><\/li><li><code>yaml<\/code><\/li><li><code>csv<\/code><\/li><\/ul><\/div><\/p><\/dd><dt>[--order=&lt;order&gt;]<\/dt><dd><p>Ascending or Descending order. [Default: ASC]<div><span>Options:<\/span><ul><li><code>ASC<\/code><\/li><li><code>DESC<\/code><\/li><\/ul><\/div><\/p><\/dd><dt>[--orderby=&lt;orderby&gt;]<\/dt><dd><p>Order by fields.<\/p><\/dd><\/dl>",
+        "options_extra": "<p>Code execution happens after WordPress has loaded entirely, which means\nyou can use any utilities defined in WordPress, active plugins, or the\ncurrent theme.<\/p>",
+        "has_child": 0,
+        "examples": "",
+        "available": "",
+        "synopsis": "wp profile eval <php-code> [--hook[=<hook>]] [--fields=<fields>] [--format=<format>] [--order=<order>] [--orderby=<orderby>]"
+    },
+    "profile-hook": {
+        "title": "profile hook",
+        "excerpt": "Profile key metrics for WordPress hooks (actions and filters).",
+        "options": "<dl><dt>[&lt;hook&gt;]<\/dt><dd><p>Drill into key metrics of callbacks on a specific WordPress hook.<\/p><\/dd><dt>[--all]<\/dt><dd><p>Profile callbacks for all WordPress hooks.<\/p><\/dd><dt>[--spotlight]<\/dt><dd><p>Filter out logs with zero-ish values from the set.<\/p><\/dd><dt>[--url=&lt;url&gt;]<\/dt><dd><p>Execute a request against a specified URL. Defaults to the home URL.<\/p><\/dd><dt>[--fields=&lt;fields&gt;]<\/dt><dd><p>Display one or more fields.<\/p><\/dd><dt>[--format=&lt;format&gt;]<\/dt><dd><p>Render output in a particular format. [Default: table]<div><span>Options:<\/span><ul><li><code>table<\/code><\/li><li><code>json<\/code><\/li><li><code>yaml<\/code><\/li><li><code>csv<\/code><\/li><\/ul><\/div><\/p><\/dd><dt>[--order=&lt;order&gt;]<\/dt><dd><p>Ascending or Descending order. [Default: ASC]<div><span>Options:<\/span><ul><li><code>ASC<\/code><\/li><li><code>DESC<\/code><\/li><\/ul><\/div><\/p><\/dd><dt>[--orderby=&lt;orderby&gt;]<\/dt><dd><p>Order by fields.<\/p><\/dd><\/dl>",
+        "options_extra": "<p>In order to profile callbacks on a specific hook, the action or filter\nwill need to execute during the course of the request.<\/p>",
+        "has_child": 0,
+        "examples": "",
+        "available": "",
+        "synopsis": "wp profile hook [<hook>] [--all] [--spotlight] [--url=<url>] [--fields=<fields>] [--format=<format>] [--order=<order>] [--orderby=<orderby>]"
     },
     "rewrite-list": {
         "title": "rewrite list",
@@ -1795,7 +1905,7 @@
         "options": "",
         "options_extra": "",
         "has_child": 1,
-        "examples": "# Install the Dutch core language pack.\n$ wp language core install nl_NL\nSuccess: Language installed.\n\n# Activate the Dutch core language pack.\n$ wp language core activate nl_NL\nSuccess: Language activated.\n\n# Uninstall the Dutch core language pack.\n$ wp language core uninstall nl_NL\nSuccess: Language uninstalled.\n\n# List installed core language packages.\n$ wp language core list --status=installed\n+----------+--------------+-------------+-----------+-----------+---------------------+\n| language | english_name | native_name | status    | update    | updated             |\n+----------+--------------+-------------+-----------+-----------+---------------------+\n| nl_NL    | Dutch        | Nederlands  | installed | available | 2016-05-13 08:12:50 |\n+----------+--------------+-------------+-----------+-----------+---------------------+",
+        "examples": "# Install the Dutch core language pack.\n$ wp language core install nl_NL\nDownloading translation from https:\/\/downloads.wordpress.org\/translation\/core\/6.4.3\/nl_NL.zip...\nUnpacking the update...\nInstalling the latest version...\nRemoving the old version of the translation...\nTranslation updated successfully.\nLanguage 'nl_NL' installed.\nSuccess: Installed 1 of 1 languages.\n\n# Activate the Dutch core language pack.\n$ wp site switch-language nl_NL\nSuccess: Language activated.\n\n# Uninstall the Dutch core language pack.\n$ wp language core uninstall nl_NL\nSuccess: Language uninstalled.\n\n# List installed core language packs.\n$ wp language core list --status=installed\n+----------+--------------+-------------+-----------+-----------+---------------------+\n| language | english_name | native_name | status    | update    | updated             |\n+----------+--------------+-------------+-----------+-----------+---------------------+\n| nl_NL    | Dutch        | Nederlands  | installed | available | 2024-01-31 10:24:06 |\n+----------+--------------+-------------+-----------+-----------+---------------------+",
         "available": "",
         "synopsis": ""
     },
@@ -1939,6 +2049,16 @@
         "available": "<p>These fields will be displayed by default for the specified post type:<\/p>\n<ul>\n<li>name<\/li>\n<li>label<\/li>\n<li>description<\/li>\n<li>hierarchical<\/li>\n<li>public<\/li>\n<li>capability_type<\/li>\n<li>labels<\/li>\n<li>cap<\/li>\n<li>supports<\/li>\n<\/ul>\n<p>These fields are optionally available:<\/p>\n<ul>\n<li>count<\/li>\n<\/ul>",
         "synopsis": "wp post-type get <post-type> [--field=<field>] [--fields=<fields>] [--format=<format>]"
     },
+    "profile-stage": {
+        "title": "profile stage",
+        "excerpt": "Profile each stage of the WordPress load process (bootstrap, main_query, template).",
+        "options": "<dl><dt>[&lt;stage&gt;]<\/dt><dd><p>Drill down into a specific stage.<\/p><\/dd><dt>[--all]<\/dt><dd><p>Expand upon all stages.<\/p><\/dd><dt>[--spotlight]<\/dt><dd><p>Filter out logs with zero-ish values from the set.<\/p><\/dd><dt>[--url=&lt;url&gt;]<\/dt><dd><p>Execute a request against a specified URL. Defaults to the home URL.<\/p><\/dd><dt>[--fields=&lt;fields&gt;]<\/dt><dd><p>Limit the output to specific fields. Default is all fields.<\/p><\/dd><dt>[--format=&lt;format&gt;]<\/dt><dd><p>Render output in a particular format. [Default: table]<div><span>Options:<\/span><ul><li><code>table<\/code><\/li><li><code>json<\/code><\/li><li><code>yaml<\/code><\/li><li><code>csv<\/code><\/li><\/ul><\/div><\/p><\/dd><dt>[--order=&lt;order&gt;]<\/dt><dd><p>Ascending or Descending order. [Default: ASC]<div><span>Options:<\/span><ul><li><code>ASC<\/code><\/li><li><code>DESC<\/code><\/li><\/ul><\/div><\/p><\/dd><dt>[--orderby=&lt;orderby&gt;]<\/dt><dd><p>Order by fields.<\/p><\/dd><\/dl>",
+        "options_extra": "<p>When WordPress handles a request from a browser, it\u2019s essentially\nexecuting as one long PHP script. <code>wp profile stage<\/code> breaks the script\ninto three stages:<\/p>\n<ul>\n<li><strong>bootstrap<\/strong> is where WordPress is setting itself up, loading plugins\nand the main theme, and firing the <code>init<\/code> hook.<\/li>\n<li><strong>main_query<\/strong> is how WordPress transforms the request (e.g. <code>\/2016\/10\/21\/moms-birthday\/<\/code>)\ninto the primary WP_Query.<\/li>\n<li><strong>template<\/strong> is where WordPress determines which theme template to\nrender based on the main query, and renders it.<\/li>\n<\/ul>\n<pre><code># `wp profile stage` gives an overview of each stage.\n$ wp profile stage --fields=stage,time,cache_ratio\n+------------+---------+-------------+\n| stage      | time    | cache_ratio |\n+------------+---------+-------------+\n| bootstrap  | 0.7994s | 93.21%      |\n| main_query | 0.0123s | 94.29%      |\n| template   | 0.792s  | 91.23%      |\n+------------+---------+-------------+\n| total (3)  | 1.6037s | 92.91%      |\n+------------+---------+-------------+\n\n# Then, dive into hooks for each stage with `wp profile stage &lt;stage&gt;`\n$ wp profile stage bootstrap --fields=hook,time,cache_ratio --spotlight\n+--------------------------+---------+-------------+\n| hook                     | time    | cache_ratio |\n+--------------------------+---------+-------------+\n| muplugins_loaded:before  | 0.2335s | 40%         |\n| muplugins_loaded         | 0.0007s | 50%         |\n| plugins_loaded:before    | 0.2792s | 77.63%      |\n| plugins_loaded           | 0.1502s | 100%        |\n| after_setup_theme:before | 0.068s  | 100%        |\n| init                     | 0.2643s | 96.88%      |\n| wp_loaded:after          | 0.0377s |             |\n+--------------------------+---------+-------------+\n| total (7)                | 1.0335s | 77.42%      |\n+--------------------------+---------+-------------+<\/code><\/pre>",
+        "has_child": 0,
+        "examples": "",
+        "available": "",
+        "synopsis": "wp profile stage [<stage>] [--all] [--spotlight] [--url=<url>] [--fields=<fields>] [--format=<format>] [--order=<order>] [--orderby=<orderby>]"
+    },
     "rewrite-flush": {
         "title": "rewrite flush",
         "excerpt": "Flushes rewrite rules.",
@@ -2045,7 +2165,7 @@
         "options": "<dl><dt>&lt;theme|zip|url&gt;...<\/dt><dd><p>One or more themes to install. Accepts a theme slug, the path to a local zip file, or a URL to a remote zip file.<\/p><\/dd><dt>[--version=&lt;version&gt;]<\/dt><dd><p>If set, get that particular version from wordpress.org, instead of the stable version.<\/p><\/dd><dt>[--force]<\/dt><dd><p>If set, the command will overwrite any installed version of the theme, without prompting for confirmation.<\/p><\/dd><dt>[--activate]<\/dt><dd><p>If set, the theme will be activated immediately after install.<\/p><\/dd><dt>[--insecure]<\/dt><dd><p>Retry downloads without certificate validation if TLS handshake fails. Note: This makes the request vulnerable to a MITM attack.<\/p><\/dd><\/dl>",
         "options_extra": "",
         "has_child": 0,
-        "examples": "# Install the latest version from wordpress.org and activate\n$ wp theme install twentysixteen --activate\nInstalling Twenty Sixteen (1.2)\nDownloading install package from http:\/\/downloads.wordpress.org\/theme\/twentysixteen.1.2.zip...\nUnpacking the package...\nInstalling the theme...\nTheme installed successfully.\nActivating 'twentysixteen'...\nSuccess: Switched to 'Twenty Sixteen' theme.\n\n# Install from a local zip file\n$ wp theme install ..\/my-theme.zip\n\n# Install from a remote zip file\n$ wp theme install http:\/\/s3.amazonaws.com\/bucketname\/my-theme.zip?AWSAccessKeyId=123&Expires=456&Signature=abcdef",
+        "examples": "# Install the latest version from wordpress.org and activate\n$ wp theme install twentysixteen --activate\nInstalling Twenty Sixteen (1.2)\nDownloading install package from http:\/\/downloads.wordpress.org\/theme\/twentysixteen.1.2.zip...\nUnpacking the package...\nInstalling the theme...\nTheme installed successfully.\nActivating 'twentysixteen'...\nSuccess: Switched to 'Twenty Sixteen' theme.\nSuccess: Installed 1 of 1 themes.\n\n# Install from a local zip file\n$ wp theme install ..\/my-theme.zip\n\n# Install from a remote zip file\n$ wp theme install http:\/\/s3.amazonaws.com\/bucketname\/my-theme.zip?AWSAccessKeyId=123&Expires=456&Signature=abcdef",
         "available": "",
         "synopsis": "wp theme install <theme|zip|url>... [--version=<version>] [--force] [--activate] [--insecure]"
     },
@@ -2065,7 +2185,7 @@
         "options": "<dl><dt>&lt;mod&gt;<\/dt><dd><p>The name of the theme mod to set or update.<\/p><\/dd><dt>&lt;value&gt;<\/dt><dd><p>The new value.<\/p><\/dd><\/dl>",
         "options_extra": "",
         "has_child": 0,
-        "examples": "# Set theme mod\n$ wp theme mod set background_color 000000\nSuccess: Theme mod background_color set to 000000",
+        "examples": "# Set theme mod\n$ wp theme mod set background_color 000000\nSuccess: Theme mod background_color set to 000000.",
         "available": "",
         "synopsis": "wp theme mod set <mod> <value>"
     },
@@ -2295,13 +2415,23 @@
         "options": "<dl><dt>[&lt;hook&gt;...]<\/dt><dd><p>One or more hooks to run.<\/p><\/dd><dt>[--due-now]<\/dt><dd><p>Run all hooks due right now.<\/p><\/dd><dt>[--exclude=&lt;hooks&gt;]<\/dt><dd><p>Comma-separated list of hooks to exclude.<\/p><\/dd><dt>[--all]<\/dt><dd><p>Run all hooks.<\/p><\/dd><\/dl>",
         "options_extra": "",
         "has_child": 0,
-        "examples": "# Run all cron events due right now\n$ wp cron event run --due-now\nSuccess: Executed a total of 2 cron events.",
+        "examples": "# Run all cron events due right now\n$ wp cron event run --due-now\nExecuted the cron event 'cron_test_1' in 0.01s.\nExecuted the cron event 'cron_test_2' in 0.006s.\nSuccess: Executed a total of 2 cron events.",
         "available": "",
         "synopsis": "wp cron event run [<hook>...] [--due-now] [--exclude=<hooks>] [--all]"
     },
     "embed-provider": {
         "title": "embed provider",
         "excerpt": "Retrieves oEmbed providers.",
+        "options": "",
+        "options_extra": "",
+        "has_child": 1,
+        "examples": "",
+        "available": "",
+        "synopsis": ""
+    },
+    "google-sitemap": {
+        "title": "google-sitemap",
+        "excerpt": "",
         "options": "",
         "options_extra": "",
         "has_child": 1,
@@ -2335,7 +2465,7 @@
         "options": "",
         "options_extra": "",
         "has_child": 1,
-        "examples": "# Install the Dutch theme language pack.\n$ wp language theme install twentyten nl_NL\nSuccess: Language installed.\n\n# Uninstall the Dutch theme language pack.\n$ wp language theme uninstall twentyten nl_NL\nSuccess: Language uninstalled.\n\n# List installed theme language packages.\n$ wp language theme list --status=installed\n+----------+--------------+-------------+-----------+-----------+---------------------+\n| language | english_name | native_name | status    | update    | updated             |\n+----------+--------------+-------------+-----------+-----------+---------------------+\n| nl_NL    | Dutch        | Nederlands  | installed | available | 2016-05-13 08:12:50 |\n+----------+--------------+-------------+-----------+-----------+---------------------+",
+        "examples": "# Install the Dutch theme language pack for Twenty Ten.\n$ wp language theme install twentyten nl_NL\nDownloading translation from https:\/\/downloads.wordpress.org\/translation\/theme\/twentyten\/4.0\/nl_NL.zip...\nUnpacking the update...\nInstalling the latest version...\nRemoving the old version of the translation...\nTranslation updated successfully.\nLanguage 'nl_NL' installed.\nSuccess: Installed 1 of 1 languages.\n\n# Uninstall the Dutch theme language pack for Twenty Ten.\n$ wp language theme uninstall twentyten nl_NL\nLanguage 'nl_NL' for 'twentyten' uninstalled.\n+-----------+--------+-------------+\n| name      | locale | status      |\n+-----------+--------+-------------+\n| twentyten | nl_NL  | uninstalled |\n+-----------+--------+-------------+\nSuccess: Uninstalled 1 of 1 languages.\n\n# List installed theme language packs for Twenty Ten.\n$ wp language theme list twentyten --status=installed\n+-----------+----------+--------------+-------------+-----------+--------+---------------------+\n| theme     | language | english_name | native_name | status    | update | updated             |\n+-----------+----------+--------------+-------------+-----------+--------+---------------------+\n| twentyten | nl_NL    | Dutch        | Nederlands  | installed | none   | 2023-12-29 21:21:39 |\n+-----------+----------+--------------+-------------+-----------+--------+---------------------+",
         "available": "",
         "synopsis": ""
     },
@@ -2575,7 +2705,7 @@
         "options": "<dl><dt><\/dt><dd><command_name>... : The command<\/dd><\/dl>",
         "options_extra": "<p>This commands checks if a command is registered with WP-CLI.\nIf the command is found then it returns with exit status 0.\nIf the command doesn't exist, then it will exit with status 1.<\/p>",
         "has_child": 0,
-        "examples": "# The \"site delete\" command is registered.\n$ wp cli has-command \"site delete\"\n$ echo $?\n0\n\n# The \"foo bar\" command is not registered.\n$ wp cli has-command \"foo bar\"\n$ echo $?\n1",
+        "examples": "# The \"site delete\" command is registered.\n$ wp cli has-command \"site delete\"\n$ echo $?\n0\n\n# The \"foo bar\" command is not registered.\n$ wp cli has-command \"foo bar\"\n$ echo $?\n1\n\n# Install a WP-CLI package if not already installed\n$ if ! $(wp cli has-command doctor); then wp package install wp-cli\/doctor-command; fi\nInstalling package wp-cli\/doctor-command (dev-main || dev-master || dev-trunk)\nUpdating \/home\/person\/.wp-cli\/packages\/composer.json to require the package...\nUsing Composer to install the package...\n---\nSuccess: Package installed.",
         "available": "",
         "synopsis": "wp cli has-command <command_name>..."
     },
@@ -2625,7 +2755,7 @@
         "options": "",
         "options_extra": "",
         "has_child": 1,
-        "examples": "# Install the Dutch plugin language pack.\n$ wp language plugin install hello-dolly nl_NL\nSuccess: Language installed.\n\n# Uninstall the Dutch plugin language pack.\n$ wp language plugin uninstall hello-dolly nl_NL\nSuccess: Language uninstalled.\n\n# List installed plugin language packages.\n$ wp language plugin list --status=installed\n+----------+--------------+-------------+-----------+-----------+---------------------+\n| language | english_name | native_name | status    | update    | updated             |\n+----------+--------------+-------------+-----------+-----------+---------------------+\n| nl_NL    | Dutch        | Nederlands  | installed | available | 2016-05-13 08:12:50 |\n+----------+--------------+-------------+-----------+-----------+---------------------+",
+        "examples": "# Install the Dutch plugin language pack for Hello Dolly.\n$ wp language plugin install hello-dolly nl_NL\nDownloading translation from https:\/\/downloads.wordpress.org\/translation\/plugin\/hello-dolly\/1.7.2\/nl_NL.zip...\nUnpacking the update...\nInstalling the latest version...\nRemoving the old version of the translation...\nTranslation updated successfully.\nLanguage 'nl_NL' installed.\nSuccess: Installed 1 of 1 languages.\n\n# Uninstall the Dutch plugin language pack for Hello Dolly.\n$ wp language plugin uninstall hello-dolly nl_NL\nLanguage 'nl_NL' for 'hello-dolly' uninstalled.\n+-------------+--------+-------------+\n| name        | locale | status      |\n+-------------+--------+-------------+\n| hello-dolly | nl_NL  | uninstalled |\n+-------------+--------+-------------+\nSuccess: Uninstalled 1 of 1 languages.\n\n# List installed plugin language packs for Hello Dolly.\n$ wp language plugin list hello-dolly --status=installed\n+-------------+----------+--------------+-------------+-----------+--------+---------------------+\n| plugin      | language | english_name | native_name | status    | update | updated             |\n+-------------+----------+--------------+-------------+-----------+--------+---------------------+\n| hello-dolly | nl_NL    | Dutch        | Nederlands  | installed | none   | 2023-11-13 12:34:15 |\n+-------------+----------+--------------+-------------+-----------+--------+---------------------+",
         "available": "",
         "synopsis": ""
     },
@@ -2735,7 +2865,7 @@
         "options": "<dl><dt>&lt;user&gt;...<\/dt><dd><p>One or more user IDs, user emails, or user logins.<\/p><\/dd><\/dl>",
         "options_extra": "",
         "has_child": 0,
-        "examples": "$ wp super-admin add superadmin2\nSuccess: Granted super-admin capabilities.",
+        "examples": "# Grant super-admin privileges to the user.\n$ wp super-admin add superadmin2\nSuccess: Granted super-admin capabilities to 1 user.",
         "available": "",
         "synopsis": "wp super-admin add <user>..."
     },
@@ -2833,7 +2963,7 @@
         "title": "cli check-update",
         "excerpt": "Checks to see if there is a newer version of WP-CLI available.",
         "options": "<dl><dt>[--patch]<\/dt><dd><p>Only list patch updates.<\/p><\/dd><dt>[--minor]<\/dt><dd><p>Only list minor updates.<\/p><\/dd><dt>[--major]<\/dt><dd><p>Only list major updates.<\/p><\/dd><dt>[--field=&lt;field&gt;]<\/dt><dd><p>Prints the value of a single field for each update.<\/p><\/dd><dt>[--fields=&lt;fields&gt;]<\/dt><dd><p>Limit the output to specific object fields. Defaults to version,update_type,package_url.<\/p><\/dd><dt>[--format=&lt;format&gt;]<\/dt><dd><p>Render output in a particular format. [Default: table]<div><span>Options:<\/span><ul><li><code>table<\/code><\/li><li><code>csv<\/code><\/li><li><code>json<\/code><\/li><li><code>count<\/code><\/li><li><code>yaml<\/code><\/li><\/ul><\/div><\/p><\/dd><\/dl>",
-        "options_extra": "<p>Queries the Github releases API. Returns available versions if there are\nupdates available, or success message if using the latest release.<\/p>",
+        "options_extra": "<p>Queries the GitHub releases API. Returns available versions if there are\nupdates available, or success message if using the latest release.<\/p>",
         "has_child": 0,
         "examples": "# Check for update.\n$ wp cli check-update\nSuccess: WP-CLI is at the latest version.\n\n# Check for update and new version is available.\n$ wp cli check-update\n+---------+-------------+-------------------------------------------------------------------------------+\n| version | update_type | package_url                                                                   |\n+---------+-------------+-------------------------------------------------------------------------------+\n| 0.24.1  | patch       | https:\/\/github.com\/wp-cli\/wp-cli\/releases\/download\/v0.24.1\/wp-cli-0.24.1.phar |\n+---------+-------------+-------------------------------------------------------------------------------+",
         "available": "",
@@ -3042,10 +3172,10 @@
     "super-admin-list": {
         "title": "super-admin list",
         "excerpt": "Lists users with super admin capabilities.",
-        "options": "<dl><dt>[--format=&lt;format&gt;]<\/dt><dd><p>Render output in a particular format. [Default: list]<div><span>Options:<\/span><ul><li><code>list<\/code><\/li><li><code>table<\/code><\/li><li><code>csv<\/code><\/li><li><code>json<\/code><\/li><li><code>count<\/code><\/li><li><code>yaml<\/code><\/li><\/ul><\/div><\/p><\/dd><\/dl>",
+        "options": "<dl><dt>[--format=&lt;format&gt;]<\/dt><dd><p>Render output in a particular format. [Default: list]<div><span>Options:<\/span><ul><li><code>list<\/code><\/li><li><code>table<\/code><\/li><li><code>csv<\/code><\/li><li><code>json<\/code><\/li><li><code>count<\/code><\/li><li><code>ids<\/code><\/li><li><code>yaml<\/code><\/li><\/ul><\/div><\/p><\/dd><\/dl>",
         "options_extra": "",
         "has_child": 0,
-        "examples": "# List user with super-admin capabilities\n$ wp super-admin list\nsupervisor\nadministrator",
+        "examples": "# List user with super-admin capabilities.\n$ wp super-admin list\nsupervisor\nadministrator",
         "available": "",
         "synopsis": "wp super-admin list [--format=<format>]"
     },
@@ -3182,12 +3312,12 @@
     "cron-event-delete": {
         "title": "cron event delete",
         "excerpt": "Deletes all scheduled cron events for the given hook.",
-        "options": "<dl><dt>&lt;hook&gt;<\/dt><dd><p>The hook name.<\/p><\/dd><\/dl>",
+        "options": "<dl><dt>[&lt;hook&gt;...]<\/dt><dd><p>One or more hooks to delete.<\/p><\/dd><dt>[--due-now]<\/dt><dd><p>Delete all hooks due right now.<\/p><\/dd><dt>[--exclude=&lt;hooks&gt;]<\/dt><dd><p>Comma-separated list of hooks to exclude.<\/p><\/dd><dt>[--all]<\/dt><dd><p>Delete all hooks.<\/p><\/dd><\/dl>",
         "options_extra": "",
         "has_child": 0,
-        "examples": "# Delete all scheduled cron events for the given hook\n$ wp cron event delete cron_test\nSuccess: Deleted 2 instances of the cron event 'cron_test'.",
+        "examples": "# Delete all scheduled cron events for the given hook\n$ wp cron event delete cron_test\nSuccess: Deleted a total of 2 cron events.",
         "available": "",
-        "synopsis": "wp cron event delete <hook>"
+        "synopsis": "wp cron event delete [<hook>...] [--due-now] [--exclude=<hooks>] [--all]"
     },
     "embed-cache-clear": {
         "title": "embed cache clear",
@@ -3229,6 +3359,16 @@
         "available": "",
         "synopsis": "wp plugin deactivate [<plugin>...] [--uninstall] [--all] [--exclude=<name>] [--network]"
     },
+    "profile-eval-file": {
+        "title": "profile eval-file",
+        "excerpt": "Profile execution of an arbitrary file.",
+        "options": "<dl><dt>&lt;file&gt;<\/dt><dd><p>The path to the PHP file to execute and profile.<\/p><\/dd><dt>[--hook[=&lt;hook&gt;]]<\/dt><dd><p>Focus on key metrics for all hooks, or callbacks on a specific hook.<\/p><\/dd><dt>[--fields=&lt;fields&gt;]<\/dt><dd><p>Display one or more fields.<\/p><\/dd><dt>[--format=&lt;format&gt;]<\/dt><dd><p>Render output in a particular format. [Default: table]<div><span>Options:<\/span><ul><li><code>table<\/code><\/li><li><code>json<\/code><\/li><li><code>yaml<\/code><\/li><li><code>csv<\/code><\/li><\/ul><\/div><\/p><\/dd><dt>[--order=&lt;order&gt;]<\/dt><dd><p>Ascending or Descending order. [Default: ASC]<div><span>Options:<\/span><ul><li><code>ASC<\/code><\/li><li><code>DESC<\/code><\/li><\/ul><\/div><\/p><\/dd><dt>[--orderby=&lt;orderby&gt;]<\/dt><dd><p>Order by fields.<\/p><\/dd><\/dl>",
+        "options_extra": "<p>File execution happens after WordPress has loaded entirely, which means\nyou can use any utilities defined in WordPress, active plugins, or the\ncurrent theme.<\/p>",
+        "has_child": 0,
+        "examples": "",
+        "available": "",
+        "synopsis": "wp profile eval-file <file> [--hook[=<hook>]] [--fields=<fields>] [--format=<format>] [--order=<order>] [--orderby=<orderby>]"
+    },
     "rewrite-structure": {
         "title": "rewrite structure",
         "excerpt": "Updates the permalink structure.",
@@ -3268,6 +3408,16 @@
         "examples": "",
         "available": "",
         "synopsis": "wp site option pluck <key> <key-path>... [--format=<format>]"
+    },
+    "super-cache-flush": {
+        "title": "super-cache flush",
+        "excerpt": "Clear something from the cache.",
+        "options": "",
+        "options_extra": "",
+        "has_child": 0,
+        "examples": "",
+        "available": "",
+        "synopsis": "wp super-cache flush [--post_id=<post-id>] [--permalink=<permalink>]"
     },
     "user-session-list": {
         "title": "user session list",
@@ -3435,9 +3585,29 @@
         "options": "<dl><dt>&lt;user&gt;...<\/dt><dd><p>One or more user IDs, user emails, or user logins.<\/p><\/dd><\/dl>",
         "options_extra": "",
         "has_child": 0,
-        "examples": "$ wp super-admin remove superadmin2\nSuccess: Revoked super-admin capabilities.",
+        "examples": "# Revoke super-admin privileges from the user.\n$ wp super-admin remove superadmin2\nSuccess: Revoked super-admin capabilities from 1 user.",
         "available": "",
         "synopsis": "wp super-admin remove <user>..."
+    },
+    "super-cache-enable": {
+        "title": "super-cache enable",
+        "excerpt": "Enable the WP Super Cache.",
+        "options": "",
+        "options_extra": "",
+        "has_child": 0,
+        "examples": "",
+        "available": "",
+        "synopsis": ""
+    },
+    "super-cache-status": {
+        "title": "super-cache status",
+        "excerpt": "Get the status of the cache.",
+        "options": "",
+        "options_extra": "",
+        "has_child": 0,
+        "examples": "",
+        "available": "",
+        "synopsis": ""
     },
     "theme-auto-updates": {
         "title": "theme auto-updates",
@@ -3515,9 +3685,19 @@
         "options": "<dl><dt>[&lt;theme&gt;...]<\/dt><dd><p>One or more themes to list languages for.<\/p><\/dd><dt>[--all]<\/dt><dd><p>If set, available languages for all themes will be listed.<\/p><\/dd><dt>[--field=&lt;field&gt;]<\/dt><dd><p>Display the value of a single field.<\/p><\/dd><dt>[--&lt;field&gt;=&lt;value&gt;]<\/dt><dd><p>Filter results by key=value pairs.<\/p><\/dd><dt>[--fields=&lt;fields&gt;]<\/dt><dd><p>Limit the output to specific fields.<\/p><\/dd><dt>[--format=&lt;format&gt;]<\/dt><dd><p>Render output in a particular format. [Default: table]<div><span>Options:<\/span><ul><li><code>table<\/code><\/li><li><code>csv<\/code><\/li><li><code>json<\/code><\/li><\/ul><\/div><\/p><\/dd><\/dl>",
         "options_extra": "",
         "has_child": 0,
-        "examples": "# List language,english_name,status fields of available languages.\n$ wp language theme list --fields=language,english_name,status\n+----------------+-------------------------+-------------+\n| language       | english_name            | status      |\n+----------------+-------------------------+-------------+\n| ar             | Arabic                  | uninstalled |\n| ary            | Moroccan Arabic         | uninstalled |\n| az             | Azerbaijani             | uninstalled |",
+        "examples": "# List available language packs for the theme.\n$ wp language theme list twentyten --fields=language,english_name,status\n+----------------+-------------------------+-------------+\n| language       | english_name            | status      |\n+----------------+-------------------------+-------------+\n| ar             | Arabic                  | uninstalled |\n| ary            | Moroccan Arabic         | uninstalled |\n| az             | Azerbaijani             | uninstalled |",
         "available": "<p>These fields will be displayed by default for each translation:<\/p>\n<ul>\n<li>theme<\/li>\n<li>language<\/li>\n<li>english_name<\/li>\n<li>native_name<\/li>\n<li>status<\/li>\n<li>update<\/li>\n<li>updated<\/li>\n<\/ul>",
         "synopsis": "wp language theme list [<theme>...] [--all] [--field=<field>] [--<field>=<value>] [--fields=<fields>] [--format=<format>]"
+    },
+    "maintenance-release": {
+        "title": "maintenance release",
+        "excerpt": "",
+        "options": "",
+        "options_extra": "",
+        "has_child": 1,
+        "examples": "",
+        "available": "",
+        "synopsis": ""
     },
     "network-meta-delete": {
         "title": "network meta delete",
@@ -3579,6 +3759,26 @@
         "available": "",
         "synopsis": "wp plugin is-installed <plugin>"
     },
+    "super-cache-disable": {
+        "title": "super-cache disable",
+        "excerpt": "Disable the WP Super Cache.",
+        "options": "",
+        "options_extra": "",
+        "has_child": 0,
+        "examples": "",
+        "available": "",
+        "synopsis": ""
+    },
+    "super-cache-preload": {
+        "title": "super-cache preload",
+        "excerpt": "Primes the cache by creating static pages before users visit them",
+        "options": "",
+        "options_extra": "",
+        "has_child": 0,
+        "examples": "",
+        "available": "",
+        "synopsis": "wp super-cache preload [--status] [--cancel]"
+    },
     "user-check-password": {
         "title": "user check-password",
         "excerpt": "Checks if a user's password is valid or not.",
@@ -3625,7 +3825,7 @@
         "options": "<dl><dt>[--dry-run]<\/dt><dd><p>Preview which translations would be updated.<\/p><\/dd><\/dl>",
         "options_extra": "",
         "has_child": 0,
-        "examples": "$ wp language core update\nUpdating 'Japanese' translation for WordPress 4.9.2...\nDownloading translation from https:\/\/downloads.wordpress.org\/translation\/core\/4.9.2\/ja.zip...\nTranslation updated successfully.\nSuccess: Updated 1\/1 translation.",
+        "examples": "# Update installed core languages packs.\n$ wp language core update\nUpdating 'Japanese' translation for WordPress 6.4.3...\nDownloading translation from https:\/\/downloads.wordpress.org\/translation\/core\/6.4.3\/ja.zip...\nTranslation updated successfully.\nSuccess: Updated 1\/1 translation.",
         "available": "",
         "synopsis": "wp language core update [--dry-run]"
     },
@@ -3635,7 +3835,7 @@
         "options": "<dl><dt>[&lt;plugin&gt;...]<\/dt><dd><p>One or more plugins to list languages for.<\/p><\/dd><dt>[--all]<\/dt><dd><p>If set, available languages for all plugins will be listed.<\/p><\/dd><dt>[--field=&lt;field&gt;]<\/dt><dd><p>Display the value of a single field.<\/p><\/dd><dt>[--&lt;field&gt;=&lt;value&gt;]<\/dt><dd><p>Filter results by key=value pairs.<\/p><\/dd><dt>[--fields=&lt;fields&gt;]<\/dt><dd><p>Limit the output to specific fields.<\/p><\/dd><dt>[--format=&lt;format&gt;]<\/dt><dd><p>Render output in a particular format. [Default: table]<div><span>Options:<\/span><ul><li><code>table<\/code><\/li><li><code>csv<\/code><\/li><li><code>json<\/code><\/li><\/ul><\/div><\/p><\/dd><\/dl>",
         "options_extra": "",
         "has_child": 0,
-        "examples": "# List language,english_name,status fields of available languages.\n$ wp language plugin list --fields=language,english_name,status\n+----------------+-------------------------+-------------+\n| language       | english_name            | status      |\n+----------------+-------------------------+-------------+\n| ar             | Arabic                  | uninstalled |\n| ary            | Moroccan Arabic         | uninstalled |\n| az             | Azerbaijani             | uninstalled |",
+        "examples": "# List available language packs for the plugin.\n$ wp language plugin list hello-dolly --fields=language,english_name,status\n+----------------+-------------------------+-------------+\n| language       | english_name            | status      |\n+----------------+-------------------------+-------------+\n| ar             | Arabic                  | uninstalled |\n| ary            | Moroccan Arabic         | uninstalled |\n| az             | Azerbaijani             | uninstalled |",
         "available": "<p>These fields will be displayed by default for each translation:<\/p>\n<ul>\n<li>plugin<\/li>\n<li>language<\/li>\n<li>english_name<\/li>\n<li>native_name<\/li>\n<li>status<\/li>\n<li>update<\/li>\n<li>updated<\/li>\n<\/ul>",
         "synopsis": "wp language plugin list [<plugin>...] [--all] [--field=<field>] [--<field>=<value>] [--fields=<fields>] [--format=<format>]"
     },
@@ -3735,7 +3935,7 @@
         "options": "<dl><dt>&lt;hook&gt;<\/dt><dd><p>Name of the hook for which all events should be unscheduled.<\/p><\/dd><\/dl>",
         "options_extra": "",
         "has_child": 0,
-        "examples": "# Unschedule a cron event on given hook.\n$ wp cron event unschedule cron_test\nSuccess: Unscheduled 2 events with hook 'cron_test'.",
+        "examples": "# Unschedule a cron event on given hook.\n$ wp cron event unschedule cron_test\nSuccess: Unscheduled 2 events for hook 'cron_test'.",
         "available": "",
         "synopsis": "wp cron event unschedule <hook>"
     },
@@ -3745,7 +3945,7 @@
         "options": "<dl><dt>&lt;language&gt;...<\/dt><dd><p>Language code to install.<\/p><\/dd><dt>[--activate]<\/dt><dd><p>If set, the language will be activated immediately after install.<\/p><\/dd><\/dl>",
         "options_extra": "<p>Downloads the language pack from WordPress.org.<\/p>",
         "has_child": 0,
-        "examples": "# Install the Japanese language.\n$ wp language core install ja\nDownloading translation from https:\/\/downloads.wordpress.org\/translation\/core\/4.9.8\/ja.zip...\nUnpacking the update...\nInstalling the latest version...\nTranslation updated successfully.\nLanguage 'ja' installed.\nSuccess: Installed 1 of 1 languages.",
+        "examples": "# Install the Japanese language.\n$ wp language core install ja\nDownloading translation from https:\/\/downloads.wordpress.org\/translation\/core\/6.4.3\/ja.zip...\nUnpacking the update...\nInstalling the latest version...\nRemoving the old version of the translation...\nTranslation updated successfully.\nLanguage 'ja' installed.\nSuccess: Installed 1 of 1 languages.",
         "available": "",
         "synopsis": "wp language core install <language>... [--activate]"
     },
@@ -3755,7 +3955,7 @@
         "options": "<dl><dt>[&lt;theme&gt;...]<\/dt><dd><p>One or more themes to update languages for.<\/p><\/dd><dt>[--all]<\/dt><dd><p>If set, languages for all themes will be updated.<\/p><\/dd><dt>[--dry-run]<\/dt><dd><p>Preview which translations would be updated.<\/p><\/dd><\/dl>",
         "options_extra": "",
         "has_child": 0,
-        "examples": "$ wp language theme update --all\nUpdating 'Japanese' translation for Twenty Fifteen 1.5...\nDownloading translation from https:\/\/downloads.wordpress.org\/translation\/theme\/twentyfifteen\/1.5\/ja.zip...\nTranslation updated successfully.\nSuccess: Updated 1\/1 translation.",
+        "examples": "# Update all installed language packs for all themes.\n$ wp language theme update --all\nUpdating 'Japanese' translation for Twenty Fifteen 1.5...\nDownloading translation from https:\/\/downloads.wordpress.org\/translation\/theme\/twentyfifteen\/1.5\/ja.zip...\nTranslation updated successfully.\nSuccess: Updated 1\/1 translation.",
         "available": "",
         "synopsis": "wp language theme update [<theme>...] [--all] [--dry-run]"
     },
@@ -3799,13 +3999,23 @@
         "available": "",
         "synopsis": "wp core multisite-install [--url=<url>] [--base=<url-path>] [--subdomains] --title=<site-title> --admin_user=<username> [--admin_password=<password>] --admin_email=<email> [--skip-email] [--skip-config]"
     },
+    "google-sitemap-rebuild": {
+        "title": "google-sitemap rebuild",
+        "excerpt": "Re-generate the sitemap.",
+        "options": "",
+        "options_extra": "",
+        "has_child": 0,
+        "examples": "",
+        "available": "",
+        "synopsis": ""
+    },
     "language-core-activate": {
         "title": "language core activate",
         "excerpt": "Activates a given language.",
         "options": "<dl><dt>&lt;language&gt;<\/dt><dd><p>Language code to activate.<\/p><\/dd><\/dl>",
         "options_extra": "<p><strong>Warning: <code>wp language core activate<\/code> is deprecated. Use <code>wp site switch-language<\/code> instead.<\/strong><\/p>",
         "has_child": 0,
-        "examples": "$ wp language core activate ja\nSuccess: Language activated.",
+        "examples": "# Activate the given language.\n$ wp language core activate ja\nSuccess: Language activated.",
         "available": "",
         "synopsis": "wp language core activate <language>"
     },
@@ -3815,7 +4025,7 @@
         "options": "<dl><dt>[&lt;plugin&gt;...]<\/dt><dd><p>One or more plugins to update languages for.<\/p><\/dd><dt>[--all]<\/dt><dd><p>If set, languages for all plugins will be updated.<\/p><\/dd><dt>[--dry-run]<\/dt><dd><p>Preview which translations would be updated.<\/p><\/dd><\/dl>",
         "options_extra": "",
         "has_child": 0,
-        "examples": "$ wp language plugin update --all\nUpdating 'Japanese' translation for Akismet 3.1.11...\nDownloading translation from https:\/\/downloads.wordpress.org\/translation\/plugin\/akismet\/3.1.11\/ja.zip...\nTranslation updated successfully.\nSuccess: Updated 1\/1 translation.",
+        "examples": "# Update all installed language packs for all plugins.\n$ wp language plugin update --all\nUpdating 'Japanese' translation for Akismet 3.1.11...\nDownloading translation from https:\/\/downloads.wordpress.org\/translation\/plugin\/akismet\/3.1.11\/ja.zip...\nTranslation updated successfully.\nSuccess: Updated 1\/1 translation.",
         "available": "",
         "synopsis": "wp language plugin update [<plugin>...] [--all] [--dry-run]"
     },
@@ -3845,7 +4055,7 @@
         "options": "<dl><dt>&lt;language&gt;...<\/dt><dd><p>Language code to uninstall.<\/p><\/dd><\/dl>",
         "options_extra": "",
         "has_child": 0,
-        "examples": "$ wp language core uninstall ja\nSuccess: Language uninstalled.",
+        "examples": "# Uninstall the Japanese core language pack.\n$ wp language core uninstall ja\nSuccess: Language uninstalled.",
         "available": "",
         "synopsis": "wp language core uninstall <language>..."
     },
@@ -3855,7 +4065,7 @@
         "options": "<dl><dt>[&lt;plugin&gt;]<\/dt><dd><p>Plugin to install language for.<\/p><\/dd><dt>[--all]<\/dt><dd><p>If set, languages for all plugins will be installed.<\/p><\/dd><dt>&lt;language&gt;...<\/dt><dd><p>Language code to install.<\/p><\/dd><dt>[--format=&lt;format&gt;]<\/dt><dd><p>Render output in a particular format. Used when installing languages for all plugins. [Default: table]<div><span>Options:<\/span><ul><li><code>table<\/code><\/li><li><code>csv<\/code><\/li><li><code>json<\/code><\/li><li><code>summary<\/code><\/li><\/ul><\/div><\/p><\/dd><\/dl>",
         "options_extra": "<p>Downloads the language pack from WordPress.org.<\/p>",
         "has_child": 0,
-        "examples": "# Install the Japanese language for Akismet.\n$ wp language plugin install akismet ja\nDownloading translation from https:\/\/downloads.wordpress.org\/translation\/plugin\/akismet\/4.0.3\/ja.zip...\nUnpacking the update...\nInstalling the latest version...\nTranslation updated successfully.\nLanguage 'ja' installed.\nSuccess: Installed 1 of 1 languages.",
+        "examples": "# Install the Japanese language for Akismet.\n$ wp language plugin install akismet ja\nDownloading translation from https:\/\/downloads.wordpress.org\/translation\/plugin\/akismet\/4.0.3\/ja.zip...\nUnpacking the update...\nInstalling the latest version...\nRemoving the old version of the translation...\nTranslation updated successfully.\nLanguage 'ja' installed.\nSuccess: Installed 1 of 1 languages.",
         "available": "",
         "synopsis": "wp language plugin install [<plugin>] [--all] <language>... [--format=<format>]"
     },
@@ -3905,9 +4115,29 @@
         "options": "<dl><dt>[&lt;theme&gt;]<\/dt><dd><p>Theme to uninstall language for.<\/p><\/dd><dt>[--all]<\/dt><dd><p>If set, languages for all themes will be uninstalled.<\/p><\/dd><dt>&lt;language&gt;...<\/dt><dd><p>Language code to uninstall.<\/p><\/dd><dt>[--format=&lt;format&gt;]<\/dt><dd><p>Render output in a particular format. Used when installing languages for all themes. [Default: table]<div><span>Options:<\/span><ul><li><code>table<\/code><\/li><li><code>csv<\/code><\/li><li><code>json<\/code><\/li><li><code>summary<\/code><\/li><\/ul><\/div><\/p><\/dd><\/dl>",
         "options_extra": "",
         "has_child": 0,
-        "examples": "$ wp language theme uninstall twentyten ja\nSuccess: Language uninstalled.",
+        "examples": "# Uninstall the Japanese theme language pack for Twenty Ten.\n$ wp language theme uninstall twentyten ja\nLanguage 'ja' for 'twentyten' uninstalled.\n+-----------+--------+-------------+\n| name      | locale | status      |\n+-----------+--------+-------------+\n| twentyten | ja     | uninstalled |\n+-----------+--------+-------------+\nSuccess: Uninstalled 1 of 1 languages.",
         "available": "",
         "synopsis": "wp language theme uninstall [<theme>] [--all] <language>... [--format=<format>]"
+    },
+    "maintenance-contrib-list": {
+        "title": "maintenance contrib-list",
+        "excerpt": "Lists all contributors to this release.",
+        "options": "<dl><dt>[&lt;repo&gt;]<\/dt><dd><p>Name of the repository to fetch the release notes for. If no user\/org was provided, 'wp-cli' org is assumed. If no repo is passed, release notes for the entire org state since the last bundle release are fetched.<\/p><\/dd><dt>[&lt;milestone&gt;...]<\/dt><dd><p>Name of one or more milestones to fetch the release notes for. If none are passed, the current open one is assumed.<\/p><\/dd><dt>[--format=&lt;format&gt;]<\/dt><dd><p>Render output in a specific format. [Default: markdown]<div><span>Options:<\/span><ul><li><code>markdown<\/code><\/li><li><code>html<\/code><\/li><\/ul><\/div><\/p><\/dd><\/dl>",
+        "options_extra": "<p>Run within the main WP-CLI project repository.<\/p>",
+        "has_child": 0,
+        "examples": "",
+        "available": "",
+        "synopsis": "wp maintenance contrib-list [<repo>] [<milestone>...] [--format=<format>]"
+    },
+    "maintenance-release-date": {
+        "title": "maintenance release-date",
+        "excerpt": "Retrieves the date a given release for a repository was published at.",
+        "options": "<dl><dt>&lt;repo&gt;<\/dt><dd><p>Name of the repository to fetch the release notes for. If no user\/org was provided, 'wp-cli' org is assumed.<\/p><\/dd><dt>&lt;release&gt;<\/dt><dd><p>Name of the release to fetch the release notes for.<\/p><\/dd><\/dl>",
+        "options_extra": "",
+        "has_child": 0,
+        "examples": "",
+        "available": "",
+        "synopsis": "wp maintenance release-date <repo> <release>"
     },
     "language-plugin-uninstall": {
         "title": "language plugin uninstall",
@@ -3915,9 +4145,29 @@
         "options": "<dl><dt>[&lt;plugin&gt;]<\/dt><dd><p>Plugin to uninstall language for.<\/p><\/dd><dt>[--all]<\/dt><dd><p>If set, languages for all plugins will be uninstalled.<\/p><\/dd><dt>&lt;language&gt;...<\/dt><dd><p>Language code to uninstall.<\/p><\/dd><dt>[--format=&lt;format&gt;]<\/dt><dd><p>Render output in a particular format. Used when installing languages for all plugins. [Default: table]<div><span>Options:<\/span><ul><li><code>table<\/code><\/li><li><code>csv<\/code><\/li><li><code>json<\/code><\/li><li><code>summary<\/code><\/li><\/ul><\/div><\/p><\/dd><\/dl>",
         "options_extra": "",
         "has_child": 0,
-        "examples": "$ wp language plugin uninstall hello-dolly ja\nSuccess: Language uninstalled.",
+        "examples": "# Uninstall the Japanese plugin language pack for Hello Dolly.\n$ wp language plugin uninstall hello-dolly ja\nLanguage 'ja' for 'hello-dolly' uninstalled.\n+-------------+--------+-------------+\n| name        | locale | status      |\n+-------------+--------+-------------+\n| hello-dolly | ja     | uninstalled |\n+-------------+--------+-------------+\nSuccess: Uninstalled 1 of 1 languages.",
         "available": "",
         "synopsis": "wp language plugin uninstall [<plugin>] [--all] <language>... [--format=<format>]"
+    },
+    "maintenance-release-notes": {
+        "title": "maintenance release-notes",
+        "excerpt": "Gets the release notes for one or more milestones of a repository.",
+        "options": "<dl><dt>[&lt;repo&gt;]<\/dt><dd><p>Name of the repository to fetch the release notes for. If no user\/org was provided, 'wp-cli' org is assumed. If no repo is passed, release notes for the entire org state since the last bundle release are fetched.<\/p><\/dd><dt>[&lt;milestone&gt;...]<\/dt><dd><p>Name of one or more milestones to fetch the release notes for. If none are passed, the current open one is assumed.<\/p><\/dd><dt>[--source=&lt;source&gt;]<\/dt><dd><p>Choose source from where to copy content. [Default: release]<div><span>Options:<\/span><ul><li><code>release<\/code><\/li><\/ul><\/div><\/p><\/dd><dt>[--format=&lt;format&gt;]<\/dt><dd><p>Render output in a specific format. [Default: markdown]<div><span>Options:<\/span><ul><li><code>markdown<\/code><\/li><li><code>html<\/code><\/li><\/ul><\/div><\/p><\/dd><\/dl>",
+        "options_extra": "",
+        "has_child": 0,
+        "examples": "",
+        "available": "",
+        "synopsis": "wp maintenance release-notes [<repo>] [<milestone>...] [--source=<source>] [--format=<format>]"
+    },
+    "maintenance-replace-label": {
+        "title": "maintenance replace-label",
+        "excerpt": "Replaces a label with a different one, and optionally deletes the old",
+        "options": "<dl><dt>&lt;repo&gt;<\/dt><dd><p>Name of the repository you want to replace a label for.<\/p><\/dd><dt>&lt;old-label&gt;<\/dt><dd><p>Old label to replace on all issues.<\/p><\/dd><dt>&lt;new-label&gt;<\/dt><dd><p>New label to replace it with.<\/p><\/dd><dt>[--delete]<\/dt><dd><p>Delete the old label after the operation is complete.<\/p><\/dd><\/dl>",
+        "options_extra": "<p>label.<\/p>",
+        "has_child": 0,
+        "examples": "",
+        "available": "",
+        "synopsis": "wp maintenance replace-label <repo> <old-label> <new-label> [--delete]"
     },
     "maintenance-mode-activate": {
         "title": "maintenance-mode activate",
@@ -4059,6 +4309,36 @@
         "available": "",
         "synopsis": "wp language plugin is-installed <plugin> <language>..."
     },
+    "maintenance-milestones-after": {
+        "title": "maintenance milestones-after",
+        "excerpt": "Retrieves the milestones that were closed after a given milestone.",
+        "options": "<dl><dt>&lt;repo&gt;<\/dt><dd><p>Name of the repository to fetch the milestones for.<\/p><\/dd><dt>&lt;milestone&gt;<\/dt><dd><p>Milestone to serve as treshold.<\/p><\/dd><\/dl>",
+        "options_extra": "",
+        "has_child": 0,
+        "examples": "",
+        "available": "",
+        "synopsis": "wp maintenance milestones-after <repo> <milestone>"
+    },
+    "maintenance-milestones-since": {
+        "title": "maintenance milestones-since",
+        "excerpt": "Retrieves the milestones that were closed for a given repository after a",
+        "options": "<dl><dt>&lt;repo&gt;<\/dt><dd><p>Name of the repository to fetch the milestones for.<\/p><\/dd><dt>&lt;date&gt;<\/dt><dd><p>Threshold date to filter by.<\/p><\/dd><\/dl>",
+        "options_extra": "<p>specific date treshold.<\/p>",
+        "has_child": 0,
+        "examples": "",
+        "available": "",
+        "synopsis": "wp maintenance milestones-since <repo> <date>"
+    },
+    "maintenance-release-generate": {
+        "title": "maintenance release generate",
+        "excerpt": "Generate a new release out of an open milestone",
+        "options": "<dl><dt>[&lt;repo&gt;...]<\/dt><dd><p>Name(s) of the repository to generate a release for. If no user\/org was provided, 'wp-cli' org is assumed.<\/p><\/dd><dt>[--bundle]<\/dt><dd><p>Generate releases for the entire bundle.<\/p><\/dd><dt>[--all]<\/dt><dd><p>Generate releases for all repositories in the wp-cli organization.<\/p><\/dd><\/dl>",
+        "options_extra": "",
+        "has_child": 0,
+        "examples": "",
+        "available": "",
+        "synopsis": "wp maintenance release generate [<repo>...] [--bundle] [--all]"
+    },
     "user-application-password-get": {
         "title": "user application-password get",
         "excerpt": "Gets a specific application password.",
@@ -4118,6 +4398,16 @@
         "examples": "# Update an existing application password\n$ wp user application-password update 123 6633824d-c1d7-4f79-9dd5-4586f734d69e --name=newappname\nSuccess: Updated application password.",
         "available": "",
         "synopsis": "wp user application-password update <user> <uuid> [--<field>=<value>]"
+    },
+    "maintenance-release-close-released": {
+        "title": "maintenance release close-released",
+        "excerpt": "Close the already released milestones.",
+        "options": "<dl><dt>[&lt;repo&gt;...]<\/dt><dd><p>Name(s) of the repository to close the milestoe for. If no user\/org was provided, 'wp-cli' org is assumed.<\/p><\/dd><dt>[--bundle]<\/dt><dd><p>Close the milestones for the entire bundle.<\/p><\/dd><dt>[--all]<\/dt><dd><p>Close the milestones for all repositories in the wp-cli organization.<\/p><\/dd><\/dl>",
+        "options_extra": "",
+        "has_child": 0,
+        "examples": "",
+        "available": "",
+        "synopsis": "wp maintenance release close-released [<repo>...] [--bundle] [--all]"
     },
     "user-application-password-record-usage": {
         "title": "user application-password record-usage",
